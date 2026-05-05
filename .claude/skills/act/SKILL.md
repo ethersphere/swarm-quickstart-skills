@@ -16,7 +16,7 @@ Guide a developer through encrypting data on Swarm and controlling who can read 
    ```bash
    curl -s http://localhost:1633/status | jq .beeMode
    ```
-   If this fails → route to `/setup-bee`
+   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash

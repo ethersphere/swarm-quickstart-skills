@@ -21,7 +21,7 @@ Guide a developer through diagnosing and fixing common Bee node issues. **Run th
     └─ No → wait / check RPC endpoint
     └─ Yes ↓
 (4) Is the wallet funded?
-    └─ No → route to /setup-bee funding
+    └─ No → route to /swarm-setup funding
     └─ Yes ↓
 (5) Does a valid, non-expired stamp exist?
     └─ No → route to /stamps
@@ -92,7 +92,7 @@ Or:
 swarm-cli status
 ```
 
-If xDAI or xBZZ is zero, fund the wallet — see `/setup-bee` for funding options.
+If xDAI or xBZZ is zero, fund the wallet — see `/swarm-setup` for funding options.
 
 **Note:** If the node was left unfunded too long after first start, it may have shut itself down. Fund and restart.
 
@@ -118,7 +118,7 @@ Common stamp issues:
 
 **"stamp not usable"** → stamp hasn't propagated yet. Wait 2-3 minutes after buying.
 
-**"insufficient funds"** → wallet needs more xBZZ. Fund via `/setup-bee`.
+**"insufficient funds"** → wallet needs more xBZZ. Fund via `/swarm-setup`.
 
 **Ultra-light node** → can't upload. Upgrade to light node (restart with `--swap-enable` and `--blockchain-rpc-endpoint`).
 

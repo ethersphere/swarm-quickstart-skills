@@ -16,7 +16,7 @@ Guide a developer through creating and using feeds on Swarm. Feeds provide a sta
    ```bash
    curl -s http://localhost:1633/status | jq .beeMode
    ```
-   If this fails → route to `/setup-bee`
+   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
@@ -186,9 +186,9 @@ swarm-cli feed print \
 | Error | Fix |
 |-------|-----|
 | "stamp not usable" | Wait 2-3 minutes after buying |
-| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee` |
+| "insufficient funds" | Wallet needs xBZZ — see `/swarm-setup` |
 | "feed not found" | Wrong identity/topic combination, or feed hasn't been written to yet |
-| Connection refused | Node isn't running — route to `/setup-bee` |
+| Connection refused | Node isn't running — route to `/swarm-setup` |
 | Other errors | Route to `/troubleshoot` |
 
 ## Reference

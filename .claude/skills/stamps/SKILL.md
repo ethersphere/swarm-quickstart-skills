@@ -16,7 +16,7 @@ Guide a developer through listing, buying, sizing, topping up, and managing post
 curl -s http://localhost:1633/stamps | jq '.stamps[] | {batchID, depth, usable, batchTTL, immutableFlag}'
 ```
 
-If the command fails (connection refused, etc.), the node is not running — route to `/setup-bee`.
+If the command fails (connection refused, etc.), the node is not running — tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup` flow now. If no, note that a running node is required and wait for their direction.
 
 Present the results as a table with: batch ID (shortened), depth, effective capacity, type (mutable/immutable from `immutableFlag`), and approximate TTL in days (batchTTL / 86400).
 
@@ -108,7 +108,7 @@ Formula shortcut: `amount ≈ 1,335,104,641 * desired_days`
 
 3. Present the estimate to the user: depth, effective capacity, estimated TTL, estimated cost in BZZ, and current balance. **Ask for confirmation before proceeding.**
 
-If balance is insufficient, suggest funding via `/setup-bee` or reusing an existing stamp.
+If balance is insufficient, suggest funding via `/swarm-setup` or reusing an existing stamp.
 
 ### Via swarm-cli
 

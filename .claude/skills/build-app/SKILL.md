@@ -16,7 +16,7 @@ Guide a developer through scaffolding and building an app that uses Swarm for de
    ```bash
    curl -s http://localhost:1633/status | jq .beeMode
    ```
-   If this fails → route to `/setup-bee`
+   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup` flow now. If no, note that a running node is required to test uploads and continue with scaffolding if they prefer.
 
 2. Existing project?
    ```bash

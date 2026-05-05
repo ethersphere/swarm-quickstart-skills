@@ -16,7 +16,7 @@ Guide a developer through uploading and downloading data on Swarm. Requires a ru
    ```bash
    curl -s http://localhost:1633/status | jq .beeMode
    ```
-   If this fails → route to `/setup-bee`
+   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
@@ -201,8 +201,8 @@ Headers for upload:
 | Error | Fix |
 |-------|-----|
 | "stamp not usable" | Stamp hasn't propagated yet — wait 2-3 minutes after buying |
-| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee` funding section |
-| Connection refused | Node isn't running — route to `/setup-bee` |
+| "insufficient funds" | Wallet needs xBZZ — see `/swarm-setup` funding section |
+| Connection refused | Node isn't running — route to `/swarm-setup` |
 | 402 response | No usable stamp — route to `/stamps` |
 | "not found" on download | Content may have expired, or reference is wrong |
 | Other errors | Route to `/troubleshoot` |
