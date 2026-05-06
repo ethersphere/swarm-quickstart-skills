@@ -8,6 +8,17 @@ user-invocable: true
 
 Guide a developer through building a blog with a permanent URL that always serves the latest content. Posts are stored on Swarm; a feed acts as a mutable pointer so the URL never changes even when content is updated.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Before Starting (run immediately)
 
 **Run these checks now — do not just show the commands to the user:**
@@ -16,7 +27,7 @@ Guide a developer through building a blog with a permanent URL that always serve
    ```bash
    curl -s http://localhost:1633/status | jq .beeMode
    ```
-   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup` flow now. If no, note that a running node is required and wait for their direction.
+   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
@@ -50,7 +61,7 @@ my-blog/
   init.js       — Run once: generate key, create feed, save config
   post.js       — Create, edit, delete posts; re-upload; update feed
   read.js       — Read current feed entry (no private key needed)
-  html.js       — Generate HTML from posts array
+  render.js       — Generate HTML from posts array
   posts.json    — Local post data (source of truth)
   config.json   — Feed config: private key, owner, topic, manifest hash
   site/         — Generated HTML output (uploaded to Swarm)
@@ -59,28 +70,45 @@ my-blog/
 
 ## Step 1: Set Up the Project
 
+**Run in your terminal:**
+
 ```bash
 mkdir my-blog && cd my-blog
 npm init -y
 npm install @ethersphere/bee-js dotenv
 ```
 
-Create `.env`:
+Paste the output to confirm before continuing.
+
+---
+
+In VS Code, create a new file called `.env` and add these two lines (no leading spaces, no quotes):
+
+**Save as `.env`:**
 
 ```
 BEE_URL=http://localhost:1633
 BATCH_ID=<your-stamp-batch-id>
 ```
 
-Add to `package.json`:
+Then run:
 
-```json
-{
-  "type": "module"
-}
+```bash
+npm pkg set type=module
+echo "config.json" >> .gitignore && echo ".env" >> .gitignore
 ```
 
-## Step 2: HTML Generator (`html.js`)
+Confirm with `cat .env` and paste the output before continuing.
+
+Open the project in VS Code for easier file editing:
+
+```bash
+code .
+```
+
+(If `code` isn't found, open VS Code manually and use File → Open Folder.)
+
+## Step 2: Site Renderer (`render.js`)
 
 ```javascript
 import { writeFileSync, mkdirSync } from 'fs'
@@ -117,7 +145,7 @@ import { Bee, Topic, PrivateKey } from '@ethersphere/bee-js'
 import crypto from 'crypto'
 import { writeFileSync } from 'fs'
 import { config } from 'dotenv'
-import { writeSiteFiles } from './html.js'
+import { writeSiteFiles } from './render.js'
 
 config()
 
@@ -180,7 +208,7 @@ Create, edit, and delete posts. Each operation: updates `posts.json` → regener
 import { Bee, Topic, PrivateKey } from '@ethersphere/bee-js'
 import { readFileSync, writeFileSync } from 'fs'
 import { config } from 'dotenv'
-import { writeSiteFiles } from './html.js'
+import { writeSiteFiles } from './render.js'
 
 config()
 
@@ -312,7 +340,7 @@ See `/stamps` for sizing and top-up guidance.
 | "stamp not usable" | Wait 2-3 minutes after buying; stamp is still propagating |
 | Blog goes blank after many posts | Stamp is mutable — buy an immutable stamp and re-initialize |
 | "not found" on manifest | Stamp expired — top up and re-upload |
-| Connection refused | Node isn't running — invoke `/swarm-setup` directly |
+| Connection refused | Node isn't running — invoke `/setup-bee-interactive` directly |
 
 ## Reference
 

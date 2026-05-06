@@ -8,6 +8,17 @@ user-invocable: true
 
 Guide a developer through diagnosing and fixing common Bee node issues. **Run these checks in order** — each step depends on the previous one passing. Stop at the first failure, fix it, then continue.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Triage Tree
 
 ```
@@ -92,7 +103,7 @@ Or:
 swarm-cli status
 ```
 
-If xDAI or xBZZ is zero, fund the wallet — see `/swarm-setup` for funding options.
+If xDAI or xBZZ is zero, fund the wallet — see `/setup-bee-interactive` for funding options.
 
 **Note:** If the node was left unfunded too long after first start, it may have shut itself down. Fund and restart.
 
@@ -118,7 +129,7 @@ Common stamp issues:
 
 **"stamp not usable"** → stamp hasn't propagated yet. Wait 2-3 minutes after buying.
 
-**"insufficient funds"** → wallet needs more xBZZ. Fund via `/swarm-setup`.
+**"insufficient funds"** → wallet needs more xBZZ. Fund via `/setup-bee-interactive`.
 
 **Ultra-light node** → can't upload. Upgrade to light node (restart with `--swap-enable` and `--blockchain-rpc-endpoint`).
 

@@ -8,6 +8,17 @@ user-invocable: true
 
 Guide a developer through listing, buying, sizing, topping up, and managing postage stamps. Stamps are required before any upload to Swarm.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Step 1: List Existing Stamps (DO THIS FIRST)
 
 **Immediately run this command** before doing anything else — do not just show it to the user:
@@ -16,7 +27,7 @@ Guide a developer through listing, buying, sizing, topping up, and managing post
 curl -s http://localhost:1633/stamps | jq '.stamps[] | {batchID, depth, usable, batchTTL, immutableFlag}'
 ```
 
-If the command fails (connection refused, etc.), the node is not running — tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup` flow now. If no, note that a running node is required and wait for their direction.
+If the command fails (connection refused, etc.), the node is not running — tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 Present the results as a table with: batch ID (shortened), depth, effective capacity, type (mutable/immutable from `immutableFlag`), and approximate TTL in days (batchTTL / 86400).
 
@@ -108,7 +119,7 @@ Formula shortcut: `amount ≈ 1,335,104,641 * desired_days`
 
 3. Present the estimate to the user: depth, effective capacity, estimated TTL, estimated cost in BZZ, and current balance. **Ask for confirmation before proceeding.**
 
-If balance is insufficient, suggest funding via `/swarm-setup` or reusing an existing stamp.
+If balance is insufficient, suggest funding via `/setup-bee-interactive` or reusing an existing stamp.
 
 ### Via swarm-cli
 

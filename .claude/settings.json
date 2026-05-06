@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git checkout *)",
+      "Bash(curl -s https://api.github.com/repos/ethersphere/bee/releases/latest)",
+      "Bash(curl *)",
+      "Bash(jq)",
+      "Bash(npm --version)",
+      "Bash(swarm-cli --version)",
+      "Bash(bee version *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.ethswarm.org)"
+    ]
+  }
+}

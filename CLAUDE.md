@@ -13,7 +13,7 @@ Skills live in `.claude/skills/`. Each skill is a directory containing a `SKILL.
 ```
 .claude/skills/
   swarm/SKILL.md            — Entry point: overview + routing
-  swarm-setup/SKILL.md      — Install and run a Bee node
+  setup-bee-interactive/SKILL.md — Install and run a Bee node (interactive, step-by-step)
   stamps/SKILL.md           — List, buy, and manage postage stamps
   upload-download/SKILL.md  — Upload and download data/files
   host-website/SKILL.md     — Deploy a website to Swarm
@@ -41,7 +41,7 @@ Swarm is a decentralized peer-to-peer storage network. Files are split into 4KB 
 ### Developer flow
 
 ```
-/swarm → /swarm-setup → /stamps → /upload-download or /build-app
+/swarm → /setup-bee-interactive → /stamps → /upload-download or /build-app
                                           ↓
                             /host-website  /feed  /act  /messaging
 ```

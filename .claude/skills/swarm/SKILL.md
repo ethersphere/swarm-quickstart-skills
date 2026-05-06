@@ -8,6 +8,17 @@ user-invocable: true
 
 This skill detects whether Bee is installed and running, then routes the user to the right next step. Do not show a menu or overview — that is the job of `/help`.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Step 1 — Check if Bee is running
 
 Silently check the default API endpoint:
@@ -61,7 +72,7 @@ Tell the user:
 
 **Bee not found anywhere:**
 
-Tell the user Bee doesn't appear to be installed, and route to `/swarm-setup`.
+Tell the user Bee doesn't appear to be installed, and route to `/setup-bee-interactive`.
 
 ## Step 3 — Bee is running
 
@@ -71,5 +82,5 @@ Check the mode:
 curl -s http://localhost:1633/status | jq .beeMode
 ```
 
-- **ultra-light:** Tell the user their node is running in ultra-light mode and uploads won't work. Ask if they want to upgrade to light mode — if yes, route to `/swarm-setup`.
+- **ultra-light:** Tell the user their node is running in ultra-light mode and uploads won't work. Ask if they want to upgrade to light mode — if yes, route to `/setup-bee-interactive`.
 - **light or full:** Node is ready. Route to `/help`.

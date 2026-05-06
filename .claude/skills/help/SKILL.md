@@ -16,8 +16,8 @@ When a developer starts a conversation about building on Swarm, give them a quic
 curl -s http://localhost:1633/status | jq .beeMode
 ```
 
-- **If the node is not running:** Tell the user "Your Bee node isn't running." Ask directly: "Would you like me to walk you through installing and starting one? It only takes a few minutes." If yes → run through the full `/swarm-setup` flow now. If no → show the menu below and let them choose where to start.
-- **If ultra-light:** Note that uploads won't work yet. Suggest upgrading via `/swarm-setup`.
+- **If the node is not running:** Tell the user "Your Bee node isn't running." Ask directly: "Would you like me to walk you through installing and starting one? It only takes a few minutes." If yes → run through the full `/setup-bee-interactive` flow now. If no → show the menu below and let them choose where to start.
+- **If ultra-light:** Note that uploads won't work yet. Suggest upgrading via `/setup-bee-interactive`.
 - **If light/full and running:** Show the menu and ask what they want to build.
 
 ## Show This Overview
@@ -25,10 +25,14 @@ curl -s http://localhost:1633/status | jq .beeMode
 ```
 Welcome! Here's what I can help you with:
 
+🚀 Not sure where to start?
+  /swarm  — Detects your Bee installation and routes you to the right next step
+
 🐝 Setup & Infrastructure
-  /swarm-setup      — Install and run a Bee node (ultra-light → light)
-  /stamps           — Buy or manage postage stamps (required for uploads)
-  /troubleshoot     — Diagnose node, connectivity, or upload issues
+  /setup-bee-interactive — Install and run a Bee node, step-by-step with verification
+  /setup-bee             — Install and run a Bee node (reference, all steps at once)
+  /stamps                — Buy or manage postage stamps (required for uploads)
+  /troubleshoot          — Diagnose node, connectivity, or upload issues
 
 📦 Store & Retrieve
   /upload-download  — Upload and download data, files, or directories
@@ -50,7 +54,7 @@ Welcome! Here's what I can help you with:
 
 | They say... | Route to |
 |---|---|
-| "I'm new" / "getting started" / "first time" | `/swarm-setup` |
+| "I'm new" / "getting started" / "first time" | `/setup-bee-interactive` (guided) or `/setup-bee` (reference) |
 | "upload" / "store data" / "download" | `/upload-download` (check node first) |
 | "deploy a website" / "host a site" | `/host-website` |
 | "build an app" / "scaffold" / "dApp" | `/build-app` |
@@ -66,6 +70,6 @@ Welcome! Here's what I can help you with:
 
 If unclear where they are in their journey (and the node check above didn't resolve it), ask:
 
-1. **Do you have a Bee node running?** No → `/swarm-setup`
+1. **Do you have a Bee node running?** No → `/setup-bee-interactive` (guided) or `/setup-bee` (reference)
 2. **Do you have a postage stamp?** No → `/stamps`
 3. **What do you want to build?** → route to the right skill

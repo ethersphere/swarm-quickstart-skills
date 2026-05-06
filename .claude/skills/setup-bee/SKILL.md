@@ -141,30 +141,12 @@ When "Chainsync" shows synchronized, your node is ready.
 Required before any upload.
 
 ```bash
-swarm-cli stamp buy --depth 22 --amount 120159417615
+swarm-cli stamp create
 ```
 
-Or via API:
+Enter capacity (e.g. `500MB`, `1GB`) and TTL (e.g. `1w`, `1month`, `1y`). The command shows the cost in xBZZ and asks for confirmation before purchasing. Save the **Stamp ID** returned.
 
-```bash
-curl -X POST http://localhost:1633/stamps/120159417615/22
-```
-
-Save the **Stamp ID** returned.
-
-### Stamp sizing
-
-These are **effective (realistic) capacities** — not theoretical maximums:
-
-| Depth | Effective capacity | | Duration | Amount |
-|-------|-------------------|-|----------|--------|
-| 17 | ~7 MB | | 1 day | 1335104641 |
-| 19 | ~110 MB | | 1 week | 9345732487 |
-| 20 | ~680 MB | | 1 month | 40053139205 |
-| 21 | ~2.6 GB | | 3 months | 120159417615 |
-| 22 | ~7.7 GB | | 1 year | 480637670460 |
-
-Formula: `amount = 1335104641 * desired_days`. For capacity, see `/stamps` for the full sizing guide.
+For detailed sizing and management options, see `/stamps`.
 
 ### Manage stamps later
 
@@ -178,13 +160,15 @@ swarm-cli stamp topup --stamp <stamp-id> --amount <amount>
 
 ```bash
 # Upload
-swarm-cli upload --stdin --stamp <BATCH_ID> <<< "Hello Swarm"
+swarm-cli upload --stdin --stamp <BATCH_ID> --name hello.txt <<< "Hello Swarm"
 
 # Download
 swarm-cli download <SWARM_HASH>
+# File saved to <SWARM_HASH>/hello.txt
+cat <SWARM_HASH>/hello.txt
 ```
 
-If this works, the node is fully operational.
+If `Hello Swarm` is printed, the node is fully operational.
 
 ## Security
 

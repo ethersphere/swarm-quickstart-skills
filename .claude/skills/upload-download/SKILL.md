@@ -8,6 +8,17 @@ user-invocable: true
 
 Guide a developer through uploading and downloading data on Swarm. Requires a running Bee light node and a postage stamp.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Before Starting (run immediately)
 
 **Run these checks now — do not just show the commands to the user:**
@@ -16,7 +27,7 @@ Guide a developer through uploading and downloading data on Swarm. Requires a ru
    ```bash
    curl -s http://localhost:1633/status | jq .beeMode
    ```
-   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup` flow now. If no, note that a running node is required and wait for their direction.
+   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
@@ -201,8 +212,8 @@ Headers for upload:
 | Error | Fix |
 |-------|-----|
 | "stamp not usable" | Stamp hasn't propagated yet — wait 2-3 minutes after buying |
-| "insufficient funds" | Wallet needs xBZZ — see `/swarm-setup` funding section |
-| Connection refused | Node isn't running — route to `/swarm-setup` |
+| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee-interactive` funding section |
+| Connection refused | Node isn't running — route to `/setup-bee-interactive` |
 | 402 response | No usable stamp — route to `/stamps` |
 | "not found" on download | Content may have expired, or reference is wrong |
 | Other errors | Route to `/troubleshoot` |
