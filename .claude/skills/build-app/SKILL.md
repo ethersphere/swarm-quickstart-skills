@@ -23,7 +23,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 Silently check node status (`curl -s http://localhost:1633/node`). If the node is down, offer to walk through `/setup-bee-interactive` (a node is required to test uploads, though scaffolding can proceed without one).
 
-Also check for an existing project (`ls package.json 2>/dev/null`):
+Also check for an existing project (`test -f package.json` on Linux/macOS/WSL, or `Test-Path package.json` in PowerShell):
 - **If `package.json` exists:** Default to adding bee-js. Ask: "I see you already have a project here. Want me to add bee-js to it, or scaffold a separate Swarm project?"
 - **If no project:** Default to scaffolding. Ask what type.
 

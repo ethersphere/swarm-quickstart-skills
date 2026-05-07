@@ -23,7 +23,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps`.
 
-Also check for existing identities (`swarm-cli identity list 2>/dev/null`). If the developer already has an identity and feed, skip to [Update the feed](#update-the-feed).
+Also check for existing identities (`swarm-cli identity list 2>/dev/null` on Linux/macOS/WSL, or `swarm-cli identity list 2>$null` in PowerShell). If the developer already has an identity and feed, skip to [Update the feed](#update-the-feed).
 
 ## What to Ask
 

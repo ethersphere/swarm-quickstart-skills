@@ -84,7 +84,7 @@ npm pkg set type=module
 echo "config.json" >> .gitignore && echo ".env" >> .gitignore
 ```
 
-Confirm with `cat .env` and paste the output before continuing.
+Confirm with `cat .env` (Linux/macOS) or `Get-Content .env` (PowerShell) and paste the output before continuing.
 
 Open the project in VS Code for easier file editing:
 
