@@ -142,10 +142,10 @@ await writer.uploadReference(batchId, newUpload.reference);
 ### Create identity (first time only)
 
 ```bash
-swarm-cli identity create publisher
+swarm-cli identity create publisher --password <SECURE_PASSWORD>
 ```
 
-Save output securely. Export later with: `swarm-cli identity export publisher`
+Save output securely. Export later with: `swarm-cli identity export publisher --password <SECURE_PASSWORD>`
 
 ### Upload to feed
 
@@ -153,7 +153,8 @@ Save output securely. Export later with: `swarm-cli identity export publisher`
 swarm-cli feed upload ./my-content \
   --identity publisher \
   --topic-string my-topic \
-  --stamp <BATCH_ID>
+  --stamp <BATCH_ID> \
+  --password <SECURE_PASSWORD>
 ```
 
 Returns the feed manifest URL. Save the manifest hash.
@@ -174,7 +175,8 @@ swarm-cli feed upload ./updated-content \
 ```bash
 swarm-cli feed print \
   --identity publisher \
-  --topic-string my-topic
+  --topic-string my-topic \
+  --password <SECURE_PASSWORD>
 ```
 
 ## Use Cases

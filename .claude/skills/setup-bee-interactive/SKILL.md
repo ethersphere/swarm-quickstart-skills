@@ -154,13 +154,13 @@ Tell the user: "Now let's install the Bee node itself."
 Show the install command with the actual latest tag (from your pre-flight check):
 
 ```bash
-curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=<LATEST_TAG> bash
+curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=<LATEST_TAG> sudo bash
 ```
 
 Or with wget if curl is unavailable:
 
 ```bash
-wget -q -O - https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=<LATEST_TAG> bash
+wget -q -O - https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=<LATEST_TAG> sudo bash
 ```
 
 Ask the user to paste the output, then ask them to verify:
@@ -194,7 +194,7 @@ bee start \
   --api-addr 127.0.0.1:1633
 ```
 
-Then ask them to verify in a new terminal tab:
+Then ask them to verify in a new terminal tab (the node may return 503 for 10–30 seconds while initializing — this is normal, wait a moment and retry):
 
 ```bash
 swarm-cli status
@@ -285,11 +285,11 @@ The node will deploy a chequebook and sync chain data (~5 minutes). Ask them to 
 swarm-cli status
 ```
 
-**Expected:** "Chainsync" shows `synchronized`, peers > 0.
+**Expected:** Chainsync Δ (blocks behind) shows less than ~10, peers > 0.
 
-Ask them to paste the output. If still syncing, tell them to wait a minute and re-check. Do not proceed until chainsync is synchronized.
+Ask them to paste the output. If Δ is still high, tell them to wait a minute and re-check. Do not proceed until the node is caught up.
 
-Once synchronized, verify the wallet balances are non-zero:
+Once the node is caught up, verify the wallet balances are non-zero:
 
 ```bash
 swarm-cli status
