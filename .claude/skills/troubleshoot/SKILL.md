@@ -1,6 +1,6 @@
 ---
 name: troubleshoot
-description: Triage guide for diagnosing and fixing Bee node, connectivity, and upload issues. Works through a structured checklist in order: node process running, API reachable at localhost:1633, peers connected, chain synced, wallet funded, stamp usable, upload and download succeeding. Covers fixes for each failure point: starting the node, port conflicts, firewall and NAT configuration for the p2p port (1634), RPC endpoint issues, wallet funding, stamp propagation delays, and ultra-light vs light node limitations. Includes a Bee API error code reference (400, 404, 422, 500, 503) and a step-by-step connectivity test for NAT issues. Route here when a node won't start, uploads fail, peers are zero, or a Bee API error is unclear.
+description: Stepwise diagnosis for Bee node, connectivity, wallet, stamp, and upload/download failures with fixes and API error guidance.
 user-invocable: true
 ---
 
@@ -230,3 +230,4 @@ For any conceptual or technical question not covered by the steps above, invoke 
 - Bee API: https://docs.ethswarm.org/api/
 - swarm-cli: https://github.com/ethersphere/swarm-cli
 - Discord support: https://discord.gg/hyCr9BMX9U
+

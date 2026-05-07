@@ -1,6 +1,6 @@
 ---
 name: setup-bee-interactive
-description: Interactive step-by-step guide for installing and running a Bee node on Swarm. Detects how far the user has already progressed, skips completed steps, and works through remaining ones one at a time — showing each command, waiting for the user to run it, and verifying the output before proceeding. Steps: curl, Node.js 18+, npm, swarm-cli, Bee binary install, ultra-light mode start, wallet funding with xDAI and xBZZ, light node upgrade, chain sync, postage stamp purchase, and a test upload. Handles errors inline with platform-specific fixes. Use for first-time setup or when a prior install attempt failed partway. For a non-interactive reference, use /setup-bee.
+description: Interactive Bee setup that detects progress, runs one step at a time with verification, and completes funding, stamps, and upload checks.
 user-invocable: true
 ---
 
@@ -423,3 +423,4 @@ Always bind API to localhost (`127.0.0.1:1633`). Never expose port 1633 to the p
 - Configuration: `bee start --help`
 - Bee API: https://docs.ethswarm.org/api/
 - swarm-cli: https://github.com/ethersphere/swarm-cli
+

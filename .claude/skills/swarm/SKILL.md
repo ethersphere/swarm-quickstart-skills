@@ -1,6 +1,6 @@
 ---
 name: swarm
-description: Entry point for Swarm development. Silently checks whether the Bee binary is installed and whether the node is reachable at the default API endpoint, then routes to the appropriate next step — /setup-bee-interactive if nothing is installed, a startup prompt if Bee is installed but not running, or /menu if the node is operational. Invoke this when starting a new Swarm session, when unsure whether the node is running, or when another skill reports a connection error. Does not require any prior setup.
+description: Primary Swarm entrypoint: detect Bee install/runtime state and route to setup, restart guidance, or menu based on node readiness.
 user-invocable: true
 ---
 
@@ -80,3 +80,4 @@ Use the `beeMode` value already obtained from the Step 1 API response — no add
 
 - **ultra-light:** Tell the user their node is running in ultra-light mode and uploads won't work. Ask if they want to upgrade to light mode — if yes, route to `/setup-bee-interactive`.
 - **light or full:** Tell the user their node is ready. Suggest running `/menu` to see all available skills, or ask what they want to build.
+

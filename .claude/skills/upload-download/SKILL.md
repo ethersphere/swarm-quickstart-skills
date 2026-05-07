@@ -1,6 +1,6 @@
 ---
 name: upload-download
-description: Guide to uploading and downloading data on Swarm using bee-js or swarm-cli. Covers uploading raw strings, single files, multiple files, and entire directories; downloading by Swarm reference hash; and working in both Node.js and browser environments. Includes bee-js examples for uploadData, uploadFile, uploadFiles, uploadFilesFromDirectory, downloadFile, and downloadData; swarm-cli equivalents; and a summary of the underlying Bee HTTP API endpoints (/bytes and /bzz). Checks that the node is running and a usable stamp exists before starting. Use when the user wants to store or retrieve any kind of data or file on Swarm.
+description: Upload and download Swarm data/files with bee-js or swarm-cli across Node.js/browser workflows, with prerequisite checks and common fixes.
 user-invocable: true
 ---
 
@@ -194,3 +194,4 @@ For any conceptual or technical question not covered by the steps above, invoke 
 - bee-js docs: https://bee-js.ethswarm.org/docs/
 - Bee API: https://docs.ethswarm.org/api/
 - swarm-cli: https://github.com/ethersphere/swarm-cli
+

@@ -1,6 +1,6 @@
 ---
 name: blog
-description: Guide to building and publishing a blog on Swarm with a permanent, updateable URL. Covers structuring posts as individual Swarm uploads, organizing them into a feed-backed index, creating a feed manifest as the stable entry point, publishing new posts without changing the blog's address, and optionally connecting an ENS domain. The blog URL (feed manifest hash) never changes as posts are added or edited. Use when the user wants to build a decentralized blog, publication, or content feed on Swarm.
+description: Build and publish a Swarm blog with a permanent feed-manifest URL, post management workflow, and optional ENS domain mapping.
 user-invocable: true
 ---
 
@@ -330,3 +330,4 @@ See `/stamps` for sizing and top-up guidance.
 - Etherjot (full-featured Swarm blog): https://github.com/Cafe137/etherjot
 - bee-js feeds: https://bee-js.ethswarm.org/docs/soc-and-feeds/
 - swarm-cli: https://github.com/ethersphere/swarm-cli
+

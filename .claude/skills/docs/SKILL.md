@@ -1,6 +1,6 @@
 ---
 name: docs
-description: Answers conceptual and technical Swarm questions by fetching and summarizing the relevant official documentation page — not from training knowledge. Use when a developer asks a "how does X work", "what is Y", or "why does Z happen" question that isn't covered by the step-by-step skills. Covers node operation, postage stamps, uploads, feeds, website hosting, ACT encryption, GSOC and PSS messaging, the bee-js SDK, the Bee HTTP API, and Swarm Desktop. Cites every answer with direct source URLs and flags unofficial sources clearly. Invoke instead of guessing when Swarm concepts, API behaviour, or configuration options are unclear.
+description: Answer Swarm conceptual questions from official docs with source links; use for APIs, behavior, configuration, and architecture clarifications.
 user-invocable: true
 ---
 
@@ -98,3 +98,4 @@ Do not answer from prior training knowledge. After fetching the relevant pages, 
 - Discord: https://discord.gg/hyCr9BMX9U
 - Bee GitHub issues: https://github.com/ethersphere/bee/issues
 - bee-js GitHub issues: https://github.com/ethersphere/bee-js/issues
+
