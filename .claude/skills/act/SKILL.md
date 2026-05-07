@@ -1,6 +1,6 @@
 ---
 name: act
-description: Guide to encrypting data on Swarm using Access Control Trie (ACT) — a per-account mechanism that lets the uploader grant or revoke read access for specific Ethereum addresses. Covers generating a publisher key, creating a grantee list, uploading encrypted content with ACT enabled, granting access to additional accounts, downloading with the correct history address and grantee credentials, and revoking access. Includes bee-js examples (uploadFile with actHistoryAddress, getGrantees, createGrantees, patchGrantees) and the corresponding Bee HTTP API headers. Use when the user needs private or access-controlled storage — confidential documents, per-user data, or any content that should not be publicly readable.
+description: Guide to Swarm ACT encryption and access control: create grantees, upload protected data, grant/revoke access, and troubleshoot not-found/history issues.
 user-invocable: true
 ---
 
@@ -223,3 +223,4 @@ For any conceptual or technical question not covered by the steps above, invoke 
 - ACT concepts: https://docs.ethswarm.org/docs/concepts/access-control
 - bee-js docs: https://bee-js.ethswarm.org/docs/
 - swarm-cli: https://github.com/ethersphere/swarm-cli
+

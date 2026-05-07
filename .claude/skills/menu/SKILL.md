@@ -1,6 +1,6 @@
 ---
 name: menu
-description: Overview of all available Swarm skills with routing to the right one based on what the user wants to build. Checks node status first and offers to start the setup flow if the node is not running. Lists skills for node setup, stamps, uploading and downloading, website hosting, feeds, blogs, access control, messaging, and troubleshooting. Use when starting a session and unsure where to begin, or when the user asks what they can build on Swarm.
+description: Show all Swarm skills, check node status, and route developers to setup, storage, website, app, security, messaging, or troubleshooting flows.
 user-invocable: true
 ---
 
@@ -73,3 +73,4 @@ If unclear where they are in their journey (and the node check above didn't reso
 1. **Do you have a Bee node running?** No → `/setup-bee-interactive` (guided) or `/setup-bee` (reference)
 2. **Do you have a postage stamp?** No → `/stamps`
 3. **What do you want to build?** → route to the right skill
+

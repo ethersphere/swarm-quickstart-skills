@@ -1,6 +1,6 @@
 ---
 name: stamps
-description: Guide to listing, buying, sizing, topping up, diluting, and managing Swarm postage stamp batches. A valid stamp batch is required before any upload. Covers listing existing batches with capacity and TTL; buying a new batch interactively; understanding depth (capacity) and amount (TTL in PLUR); mutable vs immutable batches; extending TTL via topup; increasing capacity via dilute including the TTL-maintenance formula; and programmatic management using bee-js Size and Duration helpers. Includes a depth-to-capacity reference table (depths 17-24), an amount-to-duration quick reference, and notes on how encryption and erasure coding reduce effective capacity. Route here when the user needs to buy, check, extend, or troubleshoot a postage stamp.
+description: Manage Swarm postage stamps: list, buy, size, top up, dilute, estimate TTL/capacity, and resolve common stamp usability issues.
 user-invocable: true
 ---
 
@@ -268,3 +268,4 @@ For any conceptual or technical question not covered by the steps above, invoke 
 - bee-js docs: https://bee-js.ethswarm.org/docs/
 - Bee API: https://docs.ethswarm.org/api/
 - swarm-cli: https://github.com/ethersphere/swarm-cli
+
