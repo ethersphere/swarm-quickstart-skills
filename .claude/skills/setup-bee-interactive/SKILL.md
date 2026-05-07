@@ -40,6 +40,7 @@ Run all of these checks before showing anything to the user. Use the results to 
 
    | Step | Detection check | Pass condition |
    |------|----------------|----------------|
+   | 0 — curl | `curl --version` | Any version output |
    | 1 — Node.js + npm | `node --version && npm --version` | Node.js ≥ v18, npm present |
    | 2 — swarm-cli | `swarm-cli --version` | Any version output |
    | 3 — Bee installed | `bee version` | Any version output |
@@ -68,6 +69,30 @@ Store the platform and latest tag for use in install commands. Do not show the u
 | Full | Yes | Yes | Yes + staking | Running infrastructure, PSS subscribe |
 
 Tell the user: "I'll walk you through each step one at a time. Run each command and paste the output here — I'll confirm it looks right before we move on."
+
+---
+
+## Step 0: Check curl
+
+Ask the user to run:
+
+```bash
+curl --version
+```
+
+**Expected:** Any version output (e.g., `curl 7.x.x`).
+
+- **Found:** Confirm and move to Step 1.
+- **"command not found":** curl isn't installed. Show install instructions for their platform:
+
+  **Ubuntu/Debian:**
+  ```bash
+  sudo apt-get update && sudo apt-get install -y curl
+  ```
+
+  **macOS:** curl is pre-installed — if missing, `brew install curl`.
+
+  Re-ask `curl --version` before continuing.
 
 ---
 
