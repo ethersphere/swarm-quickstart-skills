@@ -186,9 +186,8 @@ swarm-cli stamp list
 
 | Code | Meaning | Fix |
 |------|---------|-----|
-| 400 | Bad request (malformed input) | Check request format against API docs |
-| 402 | No usable stamp / insufficient postage | Buy or top up a stamp → `/stamps` |
-| 404 | Content not found | Content may have expired, reference is wrong, or ACT flags missing |
+| 400 | Bad request — malformed input or missing required header (e.g. `"invalid header params: want required"` when stamp header is absent or malformed) | Check request format and ensure `Swarm-Postage-Batch-Id` header is present and correctly formatted |
+| 404 | Content not found OR stamp batch not found (`"batch with id not found"`) | Content may have expired, reference is wrong, stamp ID is invalid, or ACT flags missing |
 | 422 | Unprocessable entity | Check parameter types (e.g., batch ID format) |
 | 500 | Internal server error | Check Bee logs, restart node |
 | 503 | Node not ready (still syncing) | Wait for chain sync to complete |
