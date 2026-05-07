@@ -203,6 +203,10 @@ ENS integration requires:
 
 If you don't have these, use the raw `bzz://` link or [Beeport](https://beeport.ethswarm.org) instead.
 
+## Conceptual Questions
+
+For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+
 ## Reference
 
 - Full guide: https://docs.ethswarm.org/docs/develop/host-your-website/

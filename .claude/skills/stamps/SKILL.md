@@ -258,6 +258,10 @@ Duration.fromYears(n)    // → Duration
 Duration.fromEndDate(d)  // → Duration (from a Date object)
 ```
 
+## Conceptual Questions
+
+For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+
 ## Reference
 
 - Stamp batches: https://docs.ethswarm.org/docs/develop/tools-and-features/buy-a-stamp-batch

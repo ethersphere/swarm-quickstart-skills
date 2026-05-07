@@ -187,6 +187,10 @@ swarm-cli feed print \
 | Connection refused | Node isn't running — route to `/setup-bee-interactive` |
 | Other errors | Route to `/troubleshoot` |
 
+## Conceptual Questions
+
+For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+
 ## Reference
 
 - Feeds: https://docs.ethswarm.org/docs/develop/tools-and-features/feeds

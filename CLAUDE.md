@@ -26,6 +26,7 @@ Skills live in `.claude/skills/`. Each skill is a directory containing a `SKILL.
   act/SKILL.md                   — Access control (encrypted data)
   messaging/SKILL.md             — Real-time messaging (GSOC/PSS)
   troubleshoot/SKILL.md          — Diagnose node and upload issues
+  docs/SKILL.md                  — Route conceptual questions to authoritative docs
 ```
 
 ## Editing Skills

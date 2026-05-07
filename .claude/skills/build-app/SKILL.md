@@ -170,6 +170,10 @@ Once the app is running, the developer can add:
 - **Real-time messaging** → `/messaging`
 - **AI agent integration** → [swarm-mcp](https://github.com/ethersphere/swarm-mcp) gives AI tools native Swarm capabilities via MCP
 
+## Conceptual Questions
+
+For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+
 ## Reference
 
 - create-swarm-app: https://github.com/ethersphere/create-swarm-app

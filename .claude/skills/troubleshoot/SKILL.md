@@ -199,6 +199,10 @@ swarm-cli stamp list
 - API port (1633) should **never** be exposed to the public internet — always bind to `127.0.0.1`
 - Only the p2p port (1634) should be publicly accessible
 
+## Conceptual Questions
+
+For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+
 ## Reference
 
 - Connectivity guide: https://docs.ethswarm.org/docs/bee/installation/connectivity

@@ -213,6 +213,10 @@ If `Hello Swarm` is printed, the node is fully operational.
 
 Always bind API to localhost (`127.0.0.1:1633`). Never expose port 1633 to the public internet.
 
+## Conceptual Questions
+
+For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+
 ## Reference
 
 - Quick start: https://docs.ethswarm.org/docs/bee/installation/quick-start
