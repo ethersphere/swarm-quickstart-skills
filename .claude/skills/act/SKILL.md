@@ -1,6 +1,6 @@
 ---
 name: act
-description: Encrypt data on Swarm with per-account access control (ACT)
+description: Guide to encrypting data on Swarm using Access Control Trie (ACT) — a per-account mechanism that lets the uploader grant or revoke read access for specific Ethereum addresses. Covers generating a publisher key, creating a grantee list, uploading encrypted content with ACT enabled, granting access to additional accounts, downloading with the correct history address and grantee credentials, and revoking access. Includes bee-js examples (uploadFile with actHistoryAddress, getGrantees, createGrantees, patchGrantees) and the corresponding Bee HTTP API headers. Use when the user needs private or access-controlled storage — confidential documents, per-user data, or any content that should not be publicly readable.
 user-invocable: true
 ---
 
@@ -21,21 +21,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-**Run these checks now — do not just show the commands to the user:**
-
-1. Node running?
-   ```bash
-   curl -s http://localhost:1633/node
-   ```
-   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
-
-2. Stamp available?
-   ```bash
-   swarm-cli stamp list
-   ```
-   If no usable stamps → route to `/stamps`
-
-Present results briefly, then proceed.
+Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps`.
 
 ## What to Ask
 

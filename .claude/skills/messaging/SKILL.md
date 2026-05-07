@@ -1,6 +1,6 @@
 ---
 name: messaging
-description: Set up real-time messaging on Swarm using GSOC or PSS
+description: Guide to real-time messaging on Swarm using GSOC (Graffiti Single Owner Chunk) or PSS (Postal Service on Swarm). Covers choosing between protocols: GSOC for many-to-one patterns (chat, notifications, webhooks) and PSS for point-to-point messaging with optional encryption. Includes bee-js examples for gsocMine, gsocSend, gsocSubscribe (with onMessage, onError, onClose handlers); pssSubscribe, pssReceive, pssSend with optional recipient public key; and Utils.makeMaxTarget for PSS addressing. Both protocols require a full node to subscribe; GSOC requires mutable postage stamps. All messaging is bee-js only — swarm-cli has no messaging commands.
 user-invocable: true
 ---
 
@@ -21,21 +21,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-**Run these checks now — do not just show the commands to the user:**
-
-1. Node running?
-   ```bash
-   curl -s http://localhost:1633/node
-   ```
-   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
-
-2. Stamp available?
-   ```bash
-   swarm-cli stamp list
-   ```
-   If no usable stamps → route to `/stamps`
-
-Present results briefly, then proceed.
+Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps` (stamps are required for GSOC sending).
 
 ## What to Ask
 

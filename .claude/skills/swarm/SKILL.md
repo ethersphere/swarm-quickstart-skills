@@ -1,6 +1,6 @@
 ---
 name: swarm
-description: Detect Bee node status and route to the right next step
+description: Entry point for Swarm development. Silently checks whether the Bee binary is installed and whether the node is reachable at the default API endpoint, then routes to the appropriate next step — /setup-bee-interactive if nothing is installed, a startup prompt if Bee is installed but not running, or /menu if the node is operational. Invoke this when starting a new Swarm session, when unsure whether the node is running, or when another skill reports a connection error. Does not require any prior setup.
 user-invocable: true
 ---
 

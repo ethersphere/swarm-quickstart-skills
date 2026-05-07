@@ -1,6 +1,6 @@
 ---
 name: setup-bee
-description: Install and run a Bee light node for Swarm development
+description: Reference guide for installing and running a Bee node for Swarm development. Covers prerequisites (curl, Node.js 18+, npm), installing the Bee binary, installing swarm-cli, starting in ultra-light mode (no funding required), funding the wallet with xDAI and xBZZ on Gnosis Chain, upgrading to light node with swap enabled, buying a postage stamp, and verifying uploads end to end. Presents all steps at once for users who prefer a reference over an interactive walkthrough. For guided step-by-step installation with verification at each step, use /setup-bee-interactive. Covers Linux, macOS, and Windows via WSL2.
 user-invocable: true
 ---
 

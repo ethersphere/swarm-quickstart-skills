@@ -1,6 +1,6 @@
 ---
 name: menu
-description: Show all available Swarm skills and route to the right one
+description: Overview of all available Swarm skills with routing to the right one based on what the user wants to build. Checks node status first and offers to start the setup flow if the node is not running. Lists skills for node setup, stamps, uploading and downloading, website hosting, feeds, blogs, access control, messaging, and troubleshooting. Use when starting a session and unsure where to begin, or when the user asks what they can build on Swarm.
 user-invocable: true
 ---
 

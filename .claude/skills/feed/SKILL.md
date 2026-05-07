@@ -1,6 +1,6 @@
 ---
 name: feed
-description: Create and use feeds for dynamic content with stable addresses on Swarm
+description: Guide to creating and using Swarm feeds — a mechanism that gives updateable content a stable address (manifest hash) that never changes even as content is updated. Covers how feeds work (owner address + topic to predictable reference), generating a publisher key, writing to a feed, reading the latest entry, creating a feed manifest for ENS or permanent linking, and updating the feed. Includes bee-js (makeFeedWriter, makeFeedReader, createFeedManifest) and swarm-cli (identity create, feed upload, feed print) examples. Use when the user needs a fixed address for content that changes over time — websites, blogs, app state, RSS, or any dynamic data on Swarm.
 user-invocable: true
 ---
 
@@ -21,26 +21,9 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-**Run these checks now — do not just show the commands to the user:**
+Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps`.
 
-1. Node running?
-   ```bash
-   curl -s http://localhost:1633/node
-   ```
-   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
-
-2. Stamp available?
-   ```bash
-   swarm-cli stamp list
-   ```
-   If no usable stamps → route to `/stamps`
-
-3. Existing identities/feeds?
-   ```bash
-   swarm-cli identity list 2>/dev/null
-   ```
-
-Present results briefly. If the developer already has an identity and feed, skip to [Update the feed](#update-the-feed) below.
+Also check for existing identities (`swarm-cli identity list 2>/dev/null`). If the developer already has an identity and feed, skip to [Update the feed](#update-the-feed).
 
 ## What to Ask
 

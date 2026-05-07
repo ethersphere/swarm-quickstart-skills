@@ -1,6 +1,6 @@
 ---
 name: upload-download
-description: Upload and download data, files, or directories on Swarm
+description: Guide to uploading and downloading data on Swarm using bee-js or swarm-cli. Covers uploading raw strings, single files, multiple files, and entire directories; downloading by Swarm reference hash; and working in both Node.js and browser environments. Includes bee-js examples for uploadData, uploadFile, uploadFiles, uploadFilesFromDirectory, downloadFile, and downloadData; swarm-cli equivalents; and a summary of the underlying Bee HTTP API endpoints (/bytes and /bzz). Checks that the node is running and a usable stamp exists before starting. Use when the user wants to store or retrieve any kind of data or file on Swarm.
 user-invocable: true
 ---
 
@@ -21,21 +21,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-**Run these checks now — do not just show the commands to the user:**
-
-1. Node running?
-   ```bash
-   curl -s http://localhost:1633/node
-   ```
-   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
-
-2. Stamp available?
-   ```bash
-   swarm-cli stamp list
-   ```
-   If no usable stamps → route to `/stamps`
-
-Present results briefly, then proceed.
+Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps`.
 
 ## What to Ask
 

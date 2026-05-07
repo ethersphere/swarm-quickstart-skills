@@ -1,6 +1,6 @@
 ---
 name: troubleshoot
-description: Diagnose and fix common Bee node, connectivity, and upload issues
+description: Triage guide for diagnosing and fixing Bee node, connectivity, and upload issues. Works through a structured checklist in order: node process running, API reachable at localhost:1633, peers connected, chain synced, wallet funded, stamp usable, upload and download succeeding. Covers fixes for each failure point: starting the node, port conflicts, firewall and NAT configuration for the p2p port (1634), RPC endpoint issues, wallet funding, stamp propagation delays, and ultra-light vs light node limitations. Includes a Bee API error code reference (400, 404, 422, 500, 503) and a step-by-step connectivity test for NAT issues. Route here when a node won't start, uploads fail, peers are zero, or a Bee API error is unclear.
 user-invocable: true
 ---
 
