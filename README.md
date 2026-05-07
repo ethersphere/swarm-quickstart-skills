@@ -8,7 +8,7 @@ Swarm Quickstart Skills is a collection of interactive developer guides that run
 
 These guides are for developers who are new to Swarm or who want a structured path through the stack: from installing a node all the way to uploading files, hosting a website, building a dApp, or setting up real-time messaging.
 
-Currently supported: [Claude Code](https://claude.ai/code). Support for Cursor, GitHub Copilot, Windsurf, and Codex is planned.
+Currently supported: [Claude Code](https://claude.ai/code). 
 
 ## Quick Start
 
