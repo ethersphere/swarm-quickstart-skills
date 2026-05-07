@@ -75,7 +75,7 @@ bee start \
 Verify it's running:
 
 ```bash
-curl -s http://localhost:1633/status | jq
+swarm-cli status
 ```
 
 ## Step 3: Fund Your Node
@@ -83,7 +83,7 @@ curl -s http://localhost:1633/status | jq
 Get your wallet address:
 
 ```bash
-curl -s localhost:1633/addresses | jq .ethereum
+swarm-cli addresses
 ```
 
 Send tokens to this address on **Gnosis Chain** (not Ethereum mainnet):

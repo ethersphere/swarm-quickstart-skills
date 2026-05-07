@@ -32,7 +32,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
     └─ No → wait / check RPC endpoint
     └─ Yes ↓
 (4) Is the wallet funded?
-    └─ No → route to /swarm-setup funding
+    └─ No → route to /setup-bee-interactive funding
     └─ Yes ↓
 (5) Does a valid, non-expired stamp exist?
     └─ No → route to /stamps
@@ -45,10 +45,12 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 ## Step 1: Is the node running?
 
 ```bash
-curl -s http://localhost:1633/status | jq
+swarm-cli status
 ```
 
-If this fails, the node isn't running or the API port is wrong.
+If swarm-cli isn't installed, run `/swarm` first — it will detect what's missing and route to the right setup skill.
+
+If this fails or returns a connection error, the node isn't running or the API port is wrong.
 
 **Fixes:**
 - Start the node: `bee start --password YOUR_PASSWORD --api-addr 127.0.0.1:1633`
@@ -59,12 +61,6 @@ If this fails, the node isn't running or the API port is wrong.
 
 ```bash
 swarm-cli status
-```
-
-Or:
-
-```bash
-curl -s http://localhost:1633/topology | jq '{connected, population, depth}'
 ```
 
 If connected peers = 0:
@@ -88,16 +84,10 @@ If chain sync is stuck:
 ## Step 4: Is the wallet funded?
 
 ```bash
-curl -s localhost:1633/addresses | jq .ethereum
+swarm-cli addresses
 ```
 
 Check balances:
-
-```bash
-curl -s http://localhost:1633/wallet | jq
-```
-
-Or:
 
 ```bash
 swarm-cli status
@@ -113,16 +103,10 @@ If xDAI or xBZZ is zero, fund the wallet — see `/setup-bee-interactive` for fu
 swarm-cli stamp list
 ```
 
-Or:
-
-```bash
-curl -s http://localhost:1633/stamps | jq '.stamps[] | {batchID, usable, batchTTL, depth}'
-```
-
 Common stamp issues:
 - **No stamps** → buy one: see `/stamps`
-- **`usable: false`** → stamp is still propagating (wait a few minutes after purchase) or has expired
-- **`batchTTL: 0`** → stamp expired, buy a new one
+- **Usable: No** → stamp is still propagating (wait a few minutes after purchase) or has expired
+- **TTL: 0** or expired TTL → stamp expired, buy a new one
 - **Stamp full** (immutable) → buy a new one or dilute: `swarm-cli stamp dilute --depth <new-depth> --stamp <id>`
 
 ## Step 6: Upload failing?
@@ -133,7 +117,7 @@ Common stamp issues:
 
 **Ultra-light node** → can't upload. Upgrade to light node (restart with `--swap-enable` and `--blockchain-rpc-endpoint`).
 
-**"act history not found"** → wrong history address for ACT upload. Double-check the history reference.
+**"act: invalid history"** → wrong history address for ACT upload. Double-check the history reference.
 
 ## Step 7: Download failing?
 
@@ -141,11 +125,12 @@ Common stamp issues:
 
 **Check retrievability:**
 
-```bash
-curl "http://localhost:1633/stewardship/<reference>"
+```javascript
+import { Bee } from '@ethersphere/bee-js'
+const bee = new Bee('http://localhost:1633')
+const isRetrievable = await bee.isReferenceRetrievable(reference)
+console.log('Retrievable:', isRetrievable)
 ```
-
-Returns `isRetrievable: true/false`.
 
 ## Connectivity Issues
 
@@ -191,14 +176,10 @@ If step 3 fails → router/ISP firewall or port forwarding missing.
 
 ## Quick Health Check (all at once)
 
-Run these in parallel to get a full picture:
-
 ```bash
-curl -s http://localhost:1633/status | jq
-curl -s http://localhost:1633/topology | jq '{connected, population, depth}'
-curl -s http://localhost:1633/wallet | jq
-curl -s http://localhost:1633/stamps | jq '.stamps[] | {batchID, usable, batchTTL}'
 swarm-cli status
+swarm-cli addresses
+swarm-cli stamp list
 ```
 
 ## Common Bee API Error Codes

@@ -12,17 +12,20 @@ Skills live in `.claude/skills/`. Each skill is a directory containing a `SKILL.
 
 ```
 .claude/skills/
-  swarm/SKILL.md            — Entry point: overview + routing
+  swarm/SKILL.md                 — Entry point: detect Bee status and route
+  start/SKILL.md                 — Alias for /swarm
+  menu/SKILL.md                  — Show all available skills and route
   setup-bee-interactive/SKILL.md — Install and run a Bee node (interactive, step-by-step)
-  stamps/SKILL.md           — List, buy, and manage postage stamps
-  upload-download/SKILL.md  — Upload and download data/files
-  host-website/SKILL.md     — Deploy a website to Swarm
-  build-app/SKILL.md        — Scaffold a dApp or add bee-js
-  feed/SKILL.md             — Feeds for dynamic content
-  blog/SKILL.md             — Build a blog with posts, feeds, and a permanent URL
-  act/SKILL.md              — Access control (encrypted data)
-  messaging/SKILL.md        — Real-time messaging (GSOC/PSS)
-  troubleshoot/SKILL.md     — Diagnose node and upload issues
+  setup-bee/SKILL.md             — Install and run a Bee node (reference, all steps at once)
+  stamps/SKILL.md                — List, buy, and manage postage stamps
+  upload-download/SKILL.md       — Upload and download data/files
+  host-website/SKILL.md          — Deploy a website to Swarm
+  build-app/SKILL.md             — Scaffold a dApp or add bee-js
+  feed/SKILL.md                  — Feeds for dynamic content
+  blog/SKILL.md                  — Build a blog with posts, feeds, and a permanent URL
+  act/SKILL.md                   — Access control (encrypted data)
+  messaging/SKILL.md             — Real-time messaging (GSOC/PSS)
+  troubleshoot/SKILL.md          — Diagnose node and upload issues
 ```
 
 ## Editing Skills

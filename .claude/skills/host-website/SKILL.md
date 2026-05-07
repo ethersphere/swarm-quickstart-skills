@@ -25,22 +25,25 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 1. Node running?
    ```bash
-   curl -s http://localhost:1633/status | jq .beeMode
+   curl -s http://localhost:1633/node
    ```
-   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
+   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
-   curl -s http://localhost:1633/stamps | jq '.stamps[] | select(.usable==true) | {batchID, depth, batchTTL}'
+   swarm-cli stamp list
    ```
    If no usable stamps → route to `/stamps`
 
-Present results briefly, then proceed.
+Present results briefly, then present the prerequisites to the user:
 
 ## Prerequisites
 
 - Static website files with at least an `index.html` (common output folders: `dist/`, `build/`, `out/`, `public/`)
-- swarm-cli installed (`npm install -g @ethersphere/swarm-cli`) OR bee-js installed (`npm install @ethersphere/bee-js`)
+- swarm-cli installed (handled by `/setup-bee-interactive` — if missing, run that first)
+- If using bee-js instead: `npm install @ethersphere/bee-js` in your project
+
+Ask the user to confirm they have these before continuing.
 
 ## Decision: One-time upload vs Feed (updateable)
 
@@ -121,6 +124,7 @@ import { PrivateKey } from "@ethersphere/bee-js";
 const hexKey = "0x" + crypto.randomBytes(32).toString("hex");
 const privateKey = new PrivateKey(hexKey);
 
+console.log("Private key:", privateKey.toHex());
 console.log("Public address:", privateKey.publicKey().address().toHex());
 // Store the private key securely — never commit it to version control
 ```

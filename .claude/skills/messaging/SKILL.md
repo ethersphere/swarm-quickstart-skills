@@ -25,13 +25,13 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 1. Node running?
    ```bash
-   curl -s http://localhost:1633/status | jq .beeMode
+   curl -s http://localhost:1633/node
    ```
-   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
+   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
-   curl -s http://localhost:1633/stamps | jq '.stamps[] | select(.usable==true) | {batchID, depth, batchTTL}'
+   swarm-cli stamp list
    ```
    If no usable stamps → route to `/stamps`
 
@@ -74,6 +74,7 @@ const bee = new Bee('http://localhost:1633')
 // Mine a GSOC key for this node's overlay
 const addresses = await bee.getNodeAddresses()
 const privateKey = bee.gsocMine(addresses.overlay, NULL_IDENTIFIER, 12)
+console.log('Overlay:', addresses.overlay.toHex())
 console.log('Public key:', privateKey.publicKey().toCompressedHex())
 
 // Subscribe to messages
@@ -81,8 +82,9 @@ const subscription = bee.gsocSubscribe(
   privateKey.publicKey().address(),
   NULL_IDENTIFIER,
   {
-    onMessage: message => console.log('Received:', message.toJSON()),
+    onMessage: message => console.log('Received:', message.toUtf8()),
     onError: err => console.error('Error:', err),
+    onClose: () => console.log('Subscription closed'),
   }
 )
 
@@ -136,6 +138,7 @@ const topic = Topic.fromString('my-topic')
 bee.pssSubscribe(topic, {
   onMessage: msg => console.log('Received:', msg.toUtf8()),
   onError: err => console.error('Error:', err.message),
+  onClose: () => console.log('Subscription closed'),
 })
 ```
 
@@ -173,8 +176,8 @@ The sender needs the recipient's overlay address (and optionally PSS public key 
 
 ```javascript
 const addresses = await bee.getNodeAddresses()
-console.log('Overlay:', addresses.overlay)
-console.log('PSS Public Key:', addresses.pssPublicKey)
+console.log('Overlay:', addresses.overlay.toHex())
+console.log('PSS Public Key:', addresses.pssPublicKey.toCompressedHex())
 ```
 
 ### PSS methods

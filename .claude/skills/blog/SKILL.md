@@ -25,17 +25,17 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 1. Node running?
    ```bash
-   curl -s http://localhost:1633/status | jq .beeMode
+   curl -s http://localhost:1633/node
    ```
-   If this fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
+   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
-   curl -s http://localhost:1633/stamps | jq '.stamps[] | select(.usable==true) | {batchID, depth, batchTTL, immutableFlag}'
+   swarm-cli stamp list
    ```
    If no usable stamps → invoke `/stamps` directly
 
-   > **Important:** The stamp **must be immutable** (`immutableFlag: true`, the default). Mutable stamps overwrite old chunks when full — this breaks the feed's sequential index and makes old posts unretrievable. If the developer only has mutable stamps, help them buy an immutable one.
+   > **Important:** The stamp **must be immutable** (shown as "Immutable: Yes" in `swarm-cli stamp list` — this is the default). Mutable stamps overwrite old chunks when full — this breaks the feed's sequential index and makes old posts unretrievable. If the developer only has mutable stamps, help them buy an immutable one.
 
 Present results briefly, then proceed.
 
@@ -185,12 +185,7 @@ writeFileSync('config.json', JSON.stringify({
 console.log(`\nBlog live at: ${process.env.BEE_URL}/bzz/${manifest.toHex()}/`)
 ```
 
-> **Security:** `config.json` contains your private key. Add it to `.gitignore` immediately. Anyone with this key can publish to your blog.
-
-```bash
-echo "config.json" >> .gitignore
-echo ".env" >> .gitignore
-```
+> **Security:** `config.json` contains your private key — it was added to `.gitignore` in Step 1, but double-check before any `git add`. Anyone with this key can publish to your blog.
 
 Run it:
 

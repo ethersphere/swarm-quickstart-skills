@@ -1,12 +1,12 @@
 ---
 name: swarm
-description: Swarm skills overview — entry point and routing to the right skill
+description: Detect Bee node status and route to the right next step
 user-invocable: true
 ---
 
 # Swarm Entry Point
 
-This skill detects whether Bee is installed and running, then routes the user to the right next step. Do not show a menu or overview — that is the job of `/help`.
+This skill detects whether Bee is installed and running, then routes the user to the right next step. Do not show a menu or overview — that is the job of `/menu`.
 
 ## Formatting
 
@@ -21,15 +21,15 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Step 1 — Check if Bee is running
 
-Silently check the default API endpoint:
+Silently check the default API endpoint directly — do not use swarm-cli here as it may not be installed yet:
 
 ```bash
-curl -s http://localhost:1633/status
+curl -s http://localhost:1633/node
 ```
 
-If you get a valid response, Bee is running → go to **Step 3**.
+If the response contains `beeMode`, Bee is running → go to **Step 3** using the `beeMode` value from this response.
 
-If there is no response, continue to Step 2.
+If the request fails or returns no output, continue to Step 2.
 
 ## Step 2 — Check if Bee is installed
 
@@ -72,15 +72,11 @@ Tell the user:
 
 **Bee not found anywhere:**
 
-Tell the user Bee doesn't appear to be installed, and route to `/setup-bee-interactive`.
+Tell the user Bee doesn't appear to be installed, and let them choose to use `/setup-bee` or `/setup-bee-interactive` to setup their node, briefly explaining the difference between the two skills for setting up Bee.
 
 ## Step 3 — Bee is running
 
-Check the mode:
-
-```bash
-curl -s http://localhost:1633/status | jq .beeMode
-```
+Use the `beeMode` value already obtained from the Step 1 API response — no additional command needed:
 
 - **ultra-light:** Tell the user their node is running in ultra-light mode and uploads won't work. Ask if they want to upgrade to light mode — if yes, route to `/setup-bee-interactive`.
-- **light or full:** Node is ready. Route to `/help`.
+- **light or full:** Tell the user their node is ready. Suggest running `/menu` to see all available skills, or ask what they want to build.

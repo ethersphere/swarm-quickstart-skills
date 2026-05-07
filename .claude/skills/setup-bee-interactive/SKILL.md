@@ -43,15 +43,15 @@ Run all of these checks before showing anything to the user. Use the results to 
    | 1 — Node.js + npm | `node --version && npm --version` | Node.js ≥ v18, npm present |
    | 2 — swarm-cli | `swarm-cli --version` | Any version output |
    | 3 — Bee installed | `bee version` | Any version output |
-   | 4 — Node running | `curl -s localhost:1633/status \| jq .beeMode` | Returns a mode string |
+   | 4 — Node running | `swarm-cli status` | Returns mode and connectivity info |
    | 5 — Light/ultra-light? | Same response as above | `"light"` or `"full"` → skip to Step 9; `"ultralight"` → ask if they want to upgrade (Step 5) |
-   | 6 — Wallet address | `curl -s localhost:1633/addresses \| jq .ethereum` | Returns a `0x...` address |
-   | 7 — Wallet funded | `curl -s localhost:1633/wallet \| jq '{bzzBalance,nativeTokenBalance}'` | Both > 0 (only available in light mode — skip if still ultra-light) |
+   | 6 — Wallet address | `swarm-cli addresses` | Returns a `0x...` Ethereum address |
+   | 7 — Wallet funded | `swarm-cli status` | Wallet section shows non-zero xBZZ and xDAI (only in light mode — skip if still ultra-light) |
    | 8 — Chain synced | `swarm-cli status` | Chainsync shows synchronized |
-   | 9 — Stamp exists | `curl -s localhost:1633/stamps \| jq '.stamps[] \| select(.usable==true)'` | At least one usable stamp |
+   | 9 — Stamp exists | `swarm-cli stamp list` | At least one usable stamp |
    | 10 — Upload works | `swarm-cli upload --stdin --stamp <any-usable-batchID> <<< "ping"` | Returns a hash |
 
-   If all checks pass → tell the user their node is fully operational and route to `/help`.
+   If all checks pass → tell the user their node is fully operational. Suggest running `/menu` to see all available skills.
 
    If resuming mid-flow, tell the user: "It looks like you've already completed steps 1–N. Picking up from Step N+1."
 
@@ -197,10 +197,10 @@ bee start \
 Then ask them to verify in a new terminal tab:
 
 ```bash
-curl -s http://localhost:1633/status | jq
+swarm-cli status
 ```
 
-**Expected:** JSON with `"status": "ok"` and `"beeMode": "ultralight"`.
+**Expected:** Mode shows `ultralight`.
 
 - Confirmed → move to Step 6.
 - Connection refused → node didn't start. Ask them to paste any error output from the bee start terminal. Common issues:
@@ -225,10 +225,10 @@ Tell the user: "Note — a light node is required to follow any of the skills th
 Ask them to run:
 
 ```bash
-curl -s localhost:1633/addresses | jq .ethereum
+swarm-cli addresses
 ```
 
-**Expected:** A `0x...` Ethereum address.
+**Expected:** An `Ethereum: 0x...` address in the output.
 
 Confirm the address and tell them: "This is your Bee node's wallet on Gnosis Chain. You'll send xDAI and xBZZ to this address."
 
@@ -290,16 +290,10 @@ Ask them to paste the output. If still syncing, tell them to wait a minute and r
 Once synchronized, verify the wallet balances are non-zero:
 
 ```bash
-curl -s http://localhost:1633/wallet | jq '{bzzBalance, nativeTokenBalance}'
+swarm-cli status
 ```
 
-**Expected output:**
-```json
-{
-  "bzzBalance": "<non-zero>",
-  "nativeTokenBalance": "<non-zero>"
-}
-```
+**Expected:** Wallet section shows non-zero xBZZ and xDAI values.
 
 - Both non-zero → move to Step 9.
 - Still zero → ask them to confirm the transactions went to the correct address on Gnosis Chain (not Ethereum mainnet). If the node just restarted, wait a minute for chain sync and retry.
@@ -341,7 +335,7 @@ Type: Immutable
 Ask them to paste the final output after confirming. Save the **Stamp ID** (batchID) from the result.
 
 - Confirmed → move to Step 10.
-- Insufficient funds → check balance: `curl -s http://localhost:1633/wallet | jq`. Fund via Step 7.
+- Insufficient funds → check balance: `swarm-cli status`. Fund via Step 7.
 - Command hangs → node may not be fully synced yet. Wait for chainsync, then retry.
 
 ---
@@ -375,7 +369,7 @@ cat <SWARM_HASH>/hello.txt
 
 **Expected:** `Hello Swarm`
 
-- Both work → **Done!** Tell them their node is fully operational and route to `/help` for next steps.
+- Both work → **Done!** Tell them their node is fully operational. Suggest running `/menu` to see all available skills and choose what to build next.
 - "stamp not usable" → stamp is still propagating. Wait 2-3 minutes and retry.
 - Other errors → route to `/troubleshoot`.
 

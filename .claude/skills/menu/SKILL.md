@@ -1,24 +1,24 @@
 ---
-name: help
-description: Swarm skills overview and routing to the right skill
+name: menu
+description: Show all available Swarm skills and route to the right one
 user-invocable: true
 ---
 
-# Get Started with Swarm
+# Swarm Skills Menu
 
-When a developer starts a conversation about building on Swarm, give them a quick overview of what's available and route them to the right skill.
+Show the user all available Swarm skills and route them to the right one based on what they want to do.
 
 ## Before Showing the Menu (run immediately)
 
-**Silently check node status — do not just show the command to the user:**
+**Silently check node status using the API directly — do not use swarm-cli here as it may not be installed yet:**
 
 ```bash
-curl -s http://localhost:1633/status | jq .beeMode
+curl -s http://localhost:1633/node
 ```
 
-- **If the node is not running:** Tell the user "Your Bee node isn't running." Ask directly: "Would you like me to walk you through installing and starting one? It only takes a few minutes." If yes → run through the full `/setup-bee-interactive` flow now. If no → show the menu below and let them choose where to start.
-- **If ultra-light:** Note that uploads won't work yet. Suggest upgrading via `/setup-bee-interactive`.
-- **If light/full and running:** Show the menu and ask what they want to build.
+- **If the request fails or returns no output:** Tell the user "Your Bee node isn't running." Ask directly: "Would you like me to walk you through installing and starting one? It only takes a few minutes." If yes → run through the full `/setup-bee-interactive` flow now. If no → show the menu below and let them choose where to start.
+- **If `beeMode` is `ultra-light`:** Note that uploads won't work yet. Suggest upgrading via `/setup-bee-interactive`.
+- **If `beeMode` is `light` or `full`:** Show the menu and ask what they want to build.
 
 ## Show This Overview
 
@@ -34,7 +34,7 @@ Welcome! Here's what I can help you with:
   /stamps                — Buy or manage postage stamps (required for uploads)
   /troubleshoot          — Diagnose node, connectivity, or upload issues
 
-📦 Store & Retrieve
+📦 Store & Retrieve 
   /upload-download  — Upload and download data, files, or directories
   /host-website     — Deploy a website to Swarm (with optional ENS)
 

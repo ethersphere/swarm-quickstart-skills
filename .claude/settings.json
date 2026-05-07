@@ -9,8 +9,11 @@
       "Bash(curl *)",
       "Bash(jq)",
       "Bash(npm --version)",
-      "Bash(swarm-cli --version)",
+      "Bash(swarm-cli *)",
+      "Bash(node *)",
+      "Bash(echo *)",
       "Bash(bee version *)",
+      "Edit(.claude/skills/*)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:docs.ethswarm.org)"
     ]
