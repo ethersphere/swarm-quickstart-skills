@@ -245,9 +245,9 @@ Tell them the address they need to fund and ask which funding option they prefer
 **Option A — Redeem a gift code (fastest)**
 If they have a gift code private key from Swarm:
 ```bash
-swarm-cli utility redeem <GIFT_CODE_PRIVATE_KEY>
+swarm-cli utility redeem <GIFT_CODE_PRIVATE_KEY> --json-rpc-url https://xdai.fairdatasociety.org
 ```
-This auto-detects the Bee wallet and transfers xBZZ + xDAI automatically.
+This auto-detects the Bee wallet and transfers xBZZ + xDAI automatically. If the command fails with a 429 error, try `--json-rpc-url https://rpc.gnosischain.com` instead.
 
 **Option B — Multichain top-up (any chain/token, no bridging)**
 → https://fund.ethswarm.org — paste the wallet address and send from any chain. No bridging needed.
@@ -276,6 +276,8 @@ bee start \
   --api-addr 127.0.0.1:1633 \
   --blockchain-rpc-endpoint https://xdai.fairdatasociety.org
 ```
+
+`xdai.fairdatasociety.org` is the Ethersphere-maintained endpoint and is archival — required for Bee to sync historical stamp batch data on first start. If it returns 429 (rate limited), try `https://rpc.gnosischain.com` or `https://gnosis-rpc.publicnode.com` as short-term fallbacks, but note these are not archival nodes and may produce an incomplete stamp batch list on first sync. For production use, a dedicated archival RPC from Ankr, QuickNode, or Alchemy is recommended.
 
 The node will deploy a chequebook and sync chain data (~5 minutes). Ask them to run in a new tab:
 

@@ -79,7 +79,9 @@ Watch the "Chainsync" section. If blocks remaining is high, the node is still sy
 
 If chain sync is stuck:
 - Check the RPC endpoint is reachable: `curl -s https://xdai.fairdatasociety.org`
-- Try an alternative RPC: `https://rpc.gnosischain.com` or `https://gnosis-rpc.publicnode.com`
+- If it returns 429 (rate limited): restart Bee with `--blockchain-rpc-endpoint https://rpc.gnosischain.com` as a short-term fallback
+- Note: `rpc.gnosischain.com` and `gnosis-rpc.publicnode.com` are not archival nodes — they may cause an incomplete stamp batch list on first sync. If your stamp list looks empty after syncing, switch back to `xdai.fairdatasociety.org` or use a dedicated archival RPC provider (Ankr, QuickNode, Alchemy)
+- For production: use a dedicated archival Gnosis Chain RPC endpoint
 
 ## Step 4: Is the wallet funded?
 
