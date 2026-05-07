@@ -97,10 +97,10 @@ Send tokens to this address on **Gnosis Chain** (not Ethereum mainnet):
 If the developer has a gift code (a private key from Swarm), redeem it directly to the Bee wallet:
 
 ```bash
-swarm-cli utility redeem <GIFT_CODE_PRIVATE_KEY>
+swarm-cli utility redeem <GIFT_CODE_PRIVATE_KEY> --json-rpc-url https://xdai.fairdatasociety.org
 ```
 
-This transfers xBZZ and xDAI from the gift wallet to the Bee node wallet automatically. The node's wallet address is detected from the running Bee node.
+This transfers xBZZ and xDAI from the gift wallet to the Bee node wallet automatically. The node's wallet address is detected from the running Bee node. If the command fails with a 429 error, try `--json-rpc-url https://rpc.gnosischain.com` instead.
 
 To redeem to a specific wallet instead:
 
@@ -127,6 +127,8 @@ bee start \
   --api-addr 127.0.0.1:1633 \
   --blockchain-rpc-endpoint https://xdai.fairdatasociety.org
 ```
+
+`xdai.fairdatasociety.org` is the Ethersphere-maintained endpoint and is archival — required for Bee to sync historical stamp batch data on first start. If it returns 429 (rate limited), try `https://rpc.gnosischain.com` or `https://gnosis-rpc.publicnode.com` as short-term fallbacks, but note these are not archival nodes and may produce an incomplete stamp batch list on first sync. For production use, a dedicated archival RPC from Ankr, QuickNode, or Alchemy is recommended.
 
 The node deploys a chequebook and syncs chain data (~5 minutes). Monitor:
 
