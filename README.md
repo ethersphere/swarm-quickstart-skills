@@ -63,7 +63,7 @@ Start here if you're new to Swarm:
 ```
 /swarm → /setup-bee-interactive → /stamps → /upload-download or /build-app
                                                       |
-                                  /host-website  /feed  /blog  /act  /messaging
+                                      /host-website  /upload-download  /blog  /act
 ```
 
 **No node needed yet?** Deploy a website through [Beeport](https://beeport.ethswarm.org) — no Bee node required.
