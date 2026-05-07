@@ -138,6 +138,13 @@ Skills are standalone markdown files in `.claude/skills/`. To edit or add a skil
 3. Cover both bee-js and swarm-cli where applicable.
 4. Reference other skills using `/skill-name` format.
 
+## Codex Mirror Automation
+
+This repository is the source of truth. A GitHub Action (`sync-codex-repo.yml`) syncs changes to `ethersphere/swarm-quickstart-skills-codex`.
+
+Required secret in this repo:
+- `CODEX_SYNC_TOKEN` — a token with write access to `ethersphere/swarm-quickstart-skills-codex`.
+
 ## License
 
 MIT

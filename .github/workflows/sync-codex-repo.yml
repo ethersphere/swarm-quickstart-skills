@@ -1,0 +1,48 @@
+name: Sync Codex Repo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".claude/skills/**"
+      - "README.md"
+      - "CLAUDE.md"
+      - "scripts/sync-to-codex.ps1"
+      - ".github/workflows/sync-codex-repo.yml"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+
+      - name: Checkout codex repository
+        uses: actions/checkout@v4
+        with:
+          repository: ethersphere/swarm-quickstart-skills-codex
+          token: ${{ secrets.CODEX_SYNC_TOKEN }}
+          path: codex-repo
+
+      - name: Generate codex mirror content
+        shell: pwsh
+        run: ./scripts/sync-to-codex.ps1 -OutputRoot ./codex-repo
+
+      - name: Commit and push if changed
+        shell: bash
+        working-directory: codex-repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git add -A
+            git commit -m "chore: sync from ethersphere/swarm-quickstart-skills@${GITHUB_SHA}"
+            git push origin main
+          else
+            echo "No changes to sync."
+          fi
+
