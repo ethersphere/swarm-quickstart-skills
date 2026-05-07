@@ -1,10 +1,12 @@
-# Swarm Skills
+# Swarm Quickstart Skills
 
-AI-powered interactive guides for building on the [Swarm](https://ethswarm.org) decentralized storage network. Copy one folder into your project, type `/help`, and get hands-on guidance for storing data, hosting websites, building dApps, and more.
+Hands-on onboarding guides for developers building on the [Swarm](https://ethswarm.org) decentralized storage network. Drop one folder into your project, type `/swarm`, and get step-by-step guidance through installing a node, buying storage, uploading data, hosting a website, building a dApp, and more.
 
 ## What This Is
 
-Swarm Skills is a set of interactive guides that live inside your project and work with AI coding assistants. Each skill checks your environment, runs real commands against your Bee node, and walks you through the task step by step. No separate docs to read — just type the skill name and go.
+Swarm Quickstart Skills is a collection of interactive developer guides that run inside AI coding tools. Each guide walks you through a specific task — checking your environment first, running real commands against your Bee node, and explaining what's happening at each step. It's meant to replace the "read the docs, copy a command, wonder why it didn't work" loop with something you can actually follow.
+
+These guides are for developers who are new to Swarm or who want a structured path through the stack: from installing a node all the way to uploading files, hosting a website, building a dApp, or setting up real-time messaging.
 
 Currently supported: [Claude Code](https://claude.ai/code). Support for Cursor, GitHub Copilot, Windsurf, and Codex is planned.
 
@@ -13,15 +15,26 @@ Currently supported: [Claude Code](https://claude.ai/code). Support for Cursor, 
 ### 1. Clone into your project
 
 ```bash
-git clone https://github.com/GasperX93/swarm-skills.git
-cp -r swarm-skills/.claude/ /path/to/your-project/
+git clone https://github.com/ethersphere/swarm-quickstart-skills.git
+cp -r swarm-quickstart-skills/.claude/ /path/to/your-project/
+```
+
+```powershell
+git clone https://github.com/ethersphere/swarm-quickstart-skills.git
+Copy-Item -Recurse -Force swarm-quickstart-skills/.claude/ C:\path\to\your-project\
 ```
 
 Or add directly to an existing project:
 
 ```bash
 cd your-project
-curl -sL https://github.com/GasperX93/swarm-skills/archive/main.tar.gz | tar xz --strip-components=1 "swarm-skills-main/.claude"
+curl -sL https://github.com/ethersphere/swarm-quickstart-skills/archive/main.tar.gz | tar xz --strip-components=1 "swarm-quickstart-skills-main/.claude"
+```
+
+```powershell
+Set-Location your-project
+Invoke-WebRequest https://github.com/ethersphere/swarm-quickstart-skills/archive/main.tar.gz -OutFile swarm-quickstart-skills-main.tar.gz
+tar -xzf swarm-quickstart-skills-main.tar.gz swarm-quickstart-skills-main/.claude --strip-components=1
 ```
 
 ### 2. Open Claude Code in your project
@@ -31,9 +44,21 @@ cd your-project
 claude
 ```
 
-### 3. Type `/help`
+### 3. Type `/swarm`
 
-You'll see all available skills and get routed to the right one based on what you want to do.
+This detects your Bee installation status and routes you to the right next step — whether that's installing a node for the first time or jumping straight to uploading.
+
+## Developer Onboarding Path
+
+Start here if you're new to Swarm:
+
+```
+/swarm → /setup-bee-interactive → /stamps → /upload-download or /build-app
+                                                      |
+                                        /host-website  /feed  /act  /messaging
+```
+
+**No node needed yet?** Deploy a website through [Beeport](https://beeport.ethswarm.org) — no Bee node required.
 
 ## Available Skills
 
@@ -41,8 +66,9 @@ You'll see all available skills and get routed to the right one based on what yo
 
 | Skill | What it does |
 |---|---|
-| `/help` | Overview of all skills — start here |
-| `/setup-bee` | Install and run a Bee node (ultra-light, fund it, upgrade to light) |
+| `/swarm` | Entry point — detects your setup and routes to the right next step |
+| `/setup-bee-interactive` | Install and run a Bee node, step by step with verification at each stage |
+| `/setup-bee` | Same as above but presented as a reference (all steps at once) |
 | `/stamps` | List, buy, top up, dilute, and manage postage stamps |
 | `/troubleshoot` | Diagnose node, connectivity, and upload issues |
 
@@ -59,6 +85,7 @@ You'll see all available skills and get routed to the right one based on what yo
 |---|---|
 | `/build-app` | Scaffold a Swarm dApp or add bee-js to an existing project |
 | `/feed` | Create updateable content at a fixed address (feeds) |
+| `/blog` | Build a blog with posts, a feed index, and a permanent URL |
 
 ### Advanced
 
@@ -66,16 +93,7 @@ You'll see all available skills and get routed to the right one based on what yo
 |---|---|
 | `/act` | Encrypt data with per-account access control (ACT) |
 | `/messaging` | Real-time messaging via GSOC or PSS |
-
-## Developer Flow
-
-```
-/help → /setup-bee → /stamps → /upload-download or /build-app
-                                        |
-                          /host-website  /feed  /act  /messaging
-```
-
-**No node needed?** Deploy a website through [Beeport](https://beeport.ethswarm.org) — no Bee node required.
+| `/docs` | Look up any Swarm concept from the official documentation |
 
 ## What the Skills Actually Do
 
@@ -88,7 +106,7 @@ These aren't static docs. Each skill:
 
 ## Requirements
 
-- An AI coding assistant ([Claude Code](https://claude.ai/code) currently supported; more coming)
+- [Claude Code](https://claude.ai/code) (other AI coding tools coming soon)
 - [Node.js](https://nodejs.org) 18+
 - For most skills: a running [Bee](https://docs.ethswarm.org/docs/bee/installation/install) light node at `http://localhost:1633`
 
@@ -105,7 +123,7 @@ Swarm is a decentralized peer-to-peer storage network and part of the Ethereum e
 
 ## Contributing
 
-Skills are standalone markdown files (currently in `.claude/skills/` for Claude Code). To edit or add a skill:
+Skills are standalone markdown files in `.claude/skills/`. To edit or add a skill:
 
 1. Skills should be self-contained — include everything needed for that topic.
 2. Always check prerequisites and route to the right skill if something is missing.
