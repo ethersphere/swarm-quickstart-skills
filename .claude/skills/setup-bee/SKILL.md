@@ -35,12 +35,49 @@ Use this tag in the install command below (replace TAG value).
 | Light | Yes | Yes | Yes (~0.01 xDAI + ~0.2 xBZZ) | Development, uploads, feeds |
 | Full | Yes | Yes | Yes + staking | Running infrastructure, PSS subscribe |
 
-## Requirements
+## Prerequisites
 
-- Linux or macOS (Windows: use WSL2)
-- Node.js v18+ and npm
-- curl or wget
-- ~0.01 xDAI + ~0.2 xBZZ on Gnosis Chain (for upgrading to light node)
+### curl or wget (required for the Bee install script)
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get update && sudo apt-get install -y curl
+```
+
+**macOS:** Pre-installed. If missing: `brew install curl`
+
+### Node.js v18+ and npm
+
+**Ubuntu/Debian — via NodeSource (recommended, gets Node 20):**
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+**Ubuntu 24.04 — via apt (gets Node 18 from Ubuntu repos):**
+```bash
+sudo apt-get update && sudo apt-get install -y nodejs npm
+```
+
+**macOS — via Homebrew:**
+```bash
+brew install node
+```
+
+**Linux/macOS — via nvm:**
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc   # or ~/.zshrc on macOS
+nvm install --lts
+```
+
+**Windows:** Install WSL2 first (`wsl --install` in PowerShell as Administrator, then restart), then follow the Linux path inside WSL2.
+
+Verify: `node --version && npm --version` — Node.js should be v18 or higher.
+
+### Gnosis Chain tokens (for light node only)
+
+~0.01 xDAI + ~0.2 xBZZ — not needed for ultra-light mode.
 
 ## Step 1: Install Bee
 
