@@ -8,19 +8,30 @@ user-invocable: true
 
 Guide a developer through encrypting data on Swarm and controlling who can read it. ACT (Access Control Trie) lets you define per-account read permissions using Ethereum public keys.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Before Starting (run immediately)
 
 **Run these checks now — do not just show the commands to the user:**
 
 1. Node running?
    ```bash
-   curl -s http://localhost:1633/status | jq .beeMode
+   curl -s http://localhost:1633/node
    ```
-   If this fails → route to `/setup-bee`
+   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
-   curl -s http://localhost:1633/stamps | jq '.stamps[] | select(.usable==true) | {batchID, depth, batchTTL}'
+   swarm-cli stamp list
    ```
    If no usable stamps → route to `/stamps`
 
@@ -74,7 +85,7 @@ swarm-cli download <SWARM_HASH> output.txt \
   --act-publisher <PUBLIC_KEY>
 ```
 
-- `--act-publisher` — the uploader's public key (needed for decryption)
+- `--act-publisher` — the uploader's public key (needed for decryption). Get it from `swarm-cli addresses` → "Public Key:" field.
 - `--act-timestamp` — optional, defaults to current time. Use to access a specific version.
 
 **Without the ACT flags, the download will fail with "not found".**
@@ -138,8 +149,9 @@ const result = await bee.uploadFile(batchId, 'Secret data', 'secret.txt', {
   act: true
 })
 
+const historyAddress = result.historyAddress.getOrThrow()
 console.log('Encrypted reference:', result.reference.toHex())
-console.log('History address:', result.historyAddress.toHex())
+console.log('History address:', historyAddress.toHex())
 // WARNING: Save both — losing the history address means permanent loss of access to encrypted data
 ```
 
@@ -150,7 +162,11 @@ import { Bee } from '@ethersphere/bee-js'
 
 const bee = new Bee('http://localhost:1633')
 
-const file = await bee.downloadFile(reference, 'secret.txt', {
+// Get the publisher's public key (share this with grantees):
+const publisherAddresses = await bee.getNodeAddresses()
+const publisherPublicKey = publisherAddresses.publicKey  // not pssPublicKey
+
+const file = await bee.downloadFile(encryptedReference, 'secret.txt', {
   actHistoryAddress: historyAddress,
   actPublisher: publisherPublicKey
 })
@@ -170,11 +186,14 @@ const bee = new Bee('http://localhost:1633')
 const granteeResult = await bee.createGrantees(batchId, [
   '03ec55e9fb2aefb8600f69142abaad79311516c232b28919d66efb4d41bce15bfa'
 ])
-console.log('Grantee ref:', granteeResult)
+const granteeReference = granteeResult.ref
+const historyReference = granteeResult.historyref
+console.log('Grantee ref:', granteeReference.toHex())
+console.log('History ref:', historyReference.toHex())
 
 // Get current grantees
-const grantees = await bee.getGrantees(granteeReference)
-console.log('Grantees:', grantees)
+const granteesResult = await bee.getGrantees(granteeReference)
+console.log('Grantees:', granteesResult.grantees.map(k => k.toCompressedHex()))
 
 // Update access — add and revoke
 await bee.patchGrantees(batchId, granteeReference, historyReference, {
@@ -211,6 +230,6 @@ await bee.patchGrantees(batchId, granteeReference, historyReference, {
 ## Reference
 
 - ACT guide: https://docs.ethswarm.org/docs/develop/act
-- ACT concepts: https://docs.ethswarm.org/docs/develop/access-the-swarm/access-control
+- ACT concepts: https://docs.ethswarm.org/docs/concepts/access-control
 - bee-js docs: https://bee-js.ethswarm.org/docs/
 - swarm-cli: https://github.com/ethersphere/swarm-cli

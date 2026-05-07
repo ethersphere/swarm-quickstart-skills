@@ -8,15 +8,26 @@ user-invocable: true
 
 Guide a developer through scaffolding and building an app that uses Swarm for decentralized storage.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Before Starting (run immediately)
 
 **Run these checks now — do not just show the commands to the user:**
 
 1. Node running?
    ```bash
-   curl -s http://localhost:1633/status | jq .beeMode
+   curl -s http://localhost:1633/node
    ```
-   If this fails → route to `/setup-bee`
+   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required to test uploads and continue with scaffolding if they prefer.
 
 2. Existing project?
    ```bash

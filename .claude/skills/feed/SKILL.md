@@ -8,19 +8,30 @@ user-invocable: true
 
 Guide a developer through creating and using feeds on Swarm. Feeds provide a stable address that always points to the latest content — the URL never changes even when content is updated.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Before Starting (run immediately)
 
 **Run these checks now — do not just show the commands to the user:**
 
 1. Node running?
    ```bash
-   curl -s http://localhost:1633/status | jq .beeMode
+   curl -s http://localhost:1633/node
    ```
-   If this fails → route to `/setup-bee`
+   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
-   curl -s http://localhost:1633/stamps | jq '.stamps[] | select(.usable==true) | {batchID, depth, batchTTL}'
+   swarm-cli stamp list
    ```
    If no usable stamps → route to `/stamps`
 
@@ -186,9 +197,9 @@ swarm-cli feed print \
 | Error | Fix |
 |-------|-----|
 | "stamp not usable" | Wait 2-3 minutes after buying |
-| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee` |
+| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee-interactive` |
 | "feed not found" | Wrong identity/topic combination, or feed hasn't been written to yet |
-| Connection refused | Node isn't running — route to `/setup-bee` |
+| Connection refused | Node isn't running — route to `/setup-bee-interactive` |
 | Other errors | Route to `/troubleshoot` |
 
 ## Reference

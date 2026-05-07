@@ -8,19 +8,30 @@ user-invocable: true
 
 Guide a developer through uploading and downloading data on Swarm. Requires a running Bee light node and a postage stamp.
 
+## Formatting
+
+When presenting to the user, use consistent labels before each code block:
+- **Run in your terminal:** — a command the user should execute
+- **Expected output:** — example of what a successful result looks like
+- **Save as `filename`:** — file contents the user should write to disk
+
+Add a `---` horizontal rule before each labeled code block to visually separate it from surrounding text.
+
+---
+
 ## Before Starting (run immediately)
 
 **Run these checks now — do not just show the commands to the user:**
 
 1. Node running?
    ```bash
-   curl -s http://localhost:1633/status | jq .beeMode
+   curl -s http://localhost:1633/node
    ```
-   If this fails → route to `/setup-bee`
+   If the request fails or returns no output → tell the user "Your Bee node isn't running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 2. Stamp available?
    ```bash
-   curl -s http://localhost:1633/stamps | jq '.stamps[] | select(.usable==true) | {batchID, depth, batchTTL}'
+   swarm-cli stamp list
    ```
    If no usable stamps → route to `/stamps`
 
@@ -70,16 +81,6 @@ console.log("Reference:", reference.toHex());
 
 ```bash
 swarm-cli upload ./hello.txt --stamp <BATCH_ID>
-```
-
-### API
-
-```bash
-curl -X POST \
-  -H "Swarm-Postage-Batch-Id: <BATCH_ID>" \
-  -H "Content-Type: text/plain" \
-  --data-binary "@hello.txt" \
-  http://localhost:1633/bzz
 ```
 
 ## Upload Multiple Files
@@ -132,16 +133,6 @@ console.log("Reference:", reference.toHex());
 swarm-cli upload --stdin --stamp <BATCH_ID> <<< "Hello Swarm"
 ```
 
-### API
-
-```bash
-curl -X POST \
-  -H "Swarm-Postage-Batch-Id: <BATCH_ID>" \
-  -H "Content-Type: application/octet-stream" \
-  --data "Hello Swarm" \
-  http://localhost:1633/bytes
-```
-
 ## Download
 
 ### bee-js — file
@@ -170,17 +161,11 @@ console.log(data.toUtf8());
 ### swarm-cli
 
 ```bash
+# Save to file in current directory (filename = reference hash)
 swarm-cli download <REFERENCE>
-```
 
-### API
-
-```bash
-# File or collection
-curl http://localhost:1633/bzz/<REFERENCE> -o output.txt
-
-# Raw bytes
-curl http://localhost:1633/bytes/<REFERENCE> -o output.bin
+# Print to stdout (single files only)
+swarm-cli download <REFERENCE> --stdout
 ```
 
 ## API Endpoints Summary
@@ -201,8 +186,8 @@ Headers for upload:
 | Error | Fix |
 |-------|-----|
 | "stamp not usable" | Stamp hasn't propagated yet — wait 2-3 minutes after buying |
-| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee` funding section |
-| Connection refused | Node isn't running — route to `/setup-bee` |
+| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee-interactive` funding section |
+| Connection refused | Node isn't running — route to `/setup-bee-interactive` |
 | 402 response | No usable stamp — route to `/stamps` |
 | "not found" on download | Content may have expired, or reference is wrong |
 | Other errors | Route to `/troubleshoot` |
