@@ -37,12 +37,12 @@ Silently look for a Bee binary in common locations. Run these checks without sho
 
 **All platforms:**
 ```bash
-which bee
 bee version
 ```
 
 **Windows (PowerShell):**
 ```powershell
+where.exe bee
 Get-Command bee -ErrorAction SilentlyContinue
 Test-Path "$env:APPDATA\bee\bee.exe"
 Test-Path "$env:LOCALAPPDATA\bee\bee.exe"

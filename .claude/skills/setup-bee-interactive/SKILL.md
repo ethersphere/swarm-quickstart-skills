@@ -50,7 +50,7 @@ Run all of these checks before showing anything to the user. Use the results to 
    | 7 — Wallet funded | `swarm-cli status` | Wallet section shows non-zero xBZZ and xDAI (only in light mode — skip if still ultra-light) |
    | 8 — Chain synced | `swarm-cli status` | Chainsync shows synchronized |
    | 9 — Stamp exists | `swarm-cli stamp list` | At least one usable stamp |
-   | 10 — Upload works | `swarm-cli upload --stdin --stamp <any-usable-batchID> <<< "ping"` | Returns a hash |
+   | 10 — Upload works | `echo "ping" | swarm-cli upload --stdin --stamp <any-usable-batchID>` | Returns a hash |
 
    If all checks pass → tell the user their node is fully operational. Suggest running `/menu` to see all available skills.
 
@@ -372,7 +372,11 @@ Ask them to paste the final output after confirming. Save the **Stamp ID** (batc
 Tell them: "Let's do a quick upload and download to confirm everything is working."
 
 ```bash
-swarm-cli upload --stdin --stamp <BATCH_ID> --name hello.txt <<< "Hello Swarm"
+echo "Hello Swarm" | swarm-cli upload --stdin --stamp <BATCH_ID> --name hello.txt
+```
+
+```powershell
+"Hello Swarm" | swarm-cli upload --stdin --stamp <BATCH_ID> --name hello.txt
 ```
 
 Ask them to paste the output. **Expected:** A Swarm hash reference.
@@ -395,6 +399,12 @@ cat <SWARM_HASH>/hello.txt
 ```
 
 **Expected:** `Hello Swarm`
+
+PowerShell alternative:
+
+```powershell
+Get-Content <SWARM_HASH>/hello.txt
+```
 
 - Both work → **Done!** Tell them their node is fully operational. Suggest running `/menu` to see all available skills and choose what to build next.
 - "stamp not usable" → stamp is still propagating. Wait 2-3 minutes and retry.

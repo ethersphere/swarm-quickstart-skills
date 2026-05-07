@@ -54,7 +54,9 @@ If this fails or returns a connection error, the node isn't running or the API p
 
 **Fixes:**
 - Start the node: `bee start --password YOUR_PASSWORD --api-addr 127.0.0.1:1633`
-- Check if another process uses port 1633: `lsof -i :1633`
+- Check if another process uses port 1633:
+  - Linux/macOS: `lsof -i :1633`
+  - Windows (PowerShell): `Get-NetTCPConnection -LocalPort 1633 -ErrorAction SilentlyContinue`
 - Check Bee logs for startup errors
 
 ## Step 2: Is the node connected to peers?
@@ -150,6 +152,12 @@ curl icanhazip.com --ipv4
 nc -zv <YOUR_PUBLIC_IP> 1634
 ```
 
+Windows (PowerShell) alternative:
+
+```powershell
+Test-NetConnection -ComputerName <YOUR_PUBLIC_IP> -Port 1634
+```
+
 ### Common fixes
 
 | Problem | Fix |
@@ -170,6 +178,19 @@ nc -zv 192.168.x.x 1634
 
 # 3. Public IP
 nc -zv <PUBLIC_IP> 1634
+```
+
+Windows (PowerShell) alternatives:
+
+```powershell
+# 1. Localhost
+Test-NetConnection -ComputerName 127.0.0.1 -Port 1634
+
+# 2. Local network
+Test-NetConnection -ComputerName 192.168.x.x -Port 1634
+
+# 3. Public IP
+Test-NetConnection -ComputerName <PUBLIC_IP> -Port 1634
 ```
 
 If step 1 fails → OS firewall or port conflict.

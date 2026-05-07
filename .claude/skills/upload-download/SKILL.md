@@ -116,7 +116,13 @@ console.log("Reference:", reference.toHex());
 ### swarm-cli (stdin)
 
 ```bash
-swarm-cli upload --stdin --stamp <BATCH_ID> <<< "Hello Swarm"
+echo "Hello Swarm" | swarm-cli upload --stdin --stamp <BATCH_ID>
+```
+
+Windows (PowerShell) alternative:
+
+```powershell
+"Hello Swarm" | swarm-cli upload --stdin --stamp <BATCH_ID>
 ```
 
 ## Download

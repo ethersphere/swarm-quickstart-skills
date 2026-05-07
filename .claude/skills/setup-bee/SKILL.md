@@ -199,12 +199,20 @@ swarm-cli stamp topup --stamp <stamp-id> --amount <amount>
 
 ```bash
 # Upload
-swarm-cli upload --stdin --stamp <BATCH_ID> --name hello.txt <<< "Hello Swarm"
+echo "Hello Swarm" | swarm-cli upload --stdin --stamp <BATCH_ID> --name hello.txt
 
 # Download
 swarm-cli download <SWARM_HASH>
 # File saved to <SWARM_HASH>/hello.txt
 cat <SWARM_HASH>/hello.txt
+```
+
+```powershell
+# Upload (PowerShell)
+"Hello Swarm" | swarm-cli upload --stdin --stamp <BATCH_ID> --name hello.txt
+
+# Download verification (PowerShell)
+Get-Content <SWARM_HASH>/hello.txt
 ```
 
 If `Hello Swarm` is printed, the node is fully operational.
