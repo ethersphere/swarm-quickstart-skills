@@ -14,10 +14,14 @@ Currently supported: [Claude Code](https://claude.ai/code).
 
 ### 1. Clone into your project
 
+Linux/macOS/WSL:
+
 ```bash
 git clone https://github.com/ethersphere/swarm-quickstart-skills.git
 cp -r swarm-quickstart-skills/.claude/ /path/to/your-project/
 ```
+
+Windows (PowerShell):
 
 ```powershell
 git clone https://github.com/ethersphere/swarm-quickstart-skills.git
@@ -26,10 +30,14 @@ Copy-Item -Recurse -Force swarm-quickstart-skills/.claude/ C:\path\to\your-proje
 
 Or add directly to an existing project:
 
+Linux/macOS/WSL:
+
 ```bash
 cd your-project
 curl -sL https://github.com/ethersphere/swarm-quickstart-skills/archive/main.tar.gz | tar xz --strip-components=1 "swarm-quickstart-skills-main/.claude"
 ```
+
+Windows (PowerShell):
 
 ```powershell
 Set-Location your-project
