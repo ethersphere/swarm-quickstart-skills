@@ -45,13 +45,13 @@ Use this tag in the install command below (replace TAG value).
 ## Step 1: Install Bee
 
 ```bash
-curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=<LATEST_TAG> bash
+curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=<LATEST_TAG> sudo bash
 ```
 
 Or with wget:
 
 ```bash
-wget -q -O - https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=<LATEST_TAG> bash
+wget -q -O - https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=<LATEST_TAG> sudo bash
 ```
 
 Verify: `bee version`
@@ -72,7 +72,7 @@ bee start \
   --api-addr 127.0.0.1:1633
 ```
 
-Verify it's running:
+Verify it's running (the node may return 503 for 10–30 seconds while initializing — this is normal, wait a moment and retry):
 
 ```bash
 swarm-cli status
@@ -134,7 +134,7 @@ The node deploys a chequebook and syncs chain data (~5 minutes). Monitor:
 swarm-cli status
 ```
 
-When "Chainsync" shows synchronized, your node is ready.
+When the Δ (blocks behind) in Chainsync drops to less than ~10, your node is ready.
 
 ## Step 5: Buy a Postage Stamp
 

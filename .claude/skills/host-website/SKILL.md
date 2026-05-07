@@ -72,10 +72,10 @@ Access at: `http://localhost:1633/bzz/<SWARM_HASH>/`
 #### Step 1: Create publisher identity (first time only)
 
 ```bash
-swarm-cli identity create website-publisher
+swarm-cli identity create website-publisher --password <SECURE_PASSWORD>
 ```
 
-Save the output securely. To export later: `swarm-cli identity export website-publisher`
+Save the output securely. To export later: `swarm-cli identity export website-publisher --password <SECURE_PASSWORD>`
 
 #### Step 2: Upload to feed
 
@@ -85,7 +85,8 @@ swarm-cli feed upload ./website \
   --topic-string website \
   --stamp <BATCH_ID> \
   --index-document index.html \
-  --error-document 404.html
+  --error-document 404.html \
+  --password <SECURE_PASSWORD>
 ```
 
 Save the **manifest hash** from the "Feed Manifest URL" output (the part after `/bzz/`). This is the permanent reference — it never changes.
