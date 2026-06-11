@@ -1,6 +1,6 @@
 ---
 name: setup-bee
-description: Reference guide to install Bee and swarm-cli, fund and upgrade to light mode, buy a stamp, and verify end-to-end uploads.
+description: Install and run a Bee light node for Swarm development on Linux/macOS — system prerequisites (Node.js, curl), Bee and swarm-cli install, funding the node (gift code or xDAI/xBZZ on Gnosis Chain), upgrading ultra-light to light, and buying a first postage stamp. Use when the user has no node, gets connection-refused on localhost:1633, or needs to start or fund Bee.
 user-invocable: true
 ---
 
@@ -10,9 +10,9 @@ Guide a developer through getting a Bee light node running so they can build on 
 
 ## Before Starting (run immediately)
 
-**Run these checks now — do not just show the commands to the user:**
+Run these checks now and **narrate each one in a short line** — say what you're checking, run it (don't paste the command), then report the result. Don't pause for confirmation; these are read-only checks.
 
-1. Detect platform:
+1. **Say "Detecting your platform…"**, then run:
    ```bash
    uname -s
    ```
@@ -20,12 +20,11 @@ Guide a developer through getting a Bee light node running so they can build on 
    - **Darwin (macOS):** Use the install script (or Homebrew if available)
    - **Other / Windows:** Advise WSL2 first, then the Linux install path
 
-2. Fetch the latest Bee version tag:
+2. **Say "Fetching the latest Bee version…"**, then run:
    ```bash
    curl -s https://api.github.com/repos/ethersphere/bee/releases/latest | jq -r .tag_name
    ```
-
-Use this tag in the install command below (replace TAG value).
+   Report it in one line (e.g. "✓ Latest is v2.8.0.") and use this tag in the install command below (replace TAG value).
 
 ## Node Modes
 
@@ -93,11 +92,13 @@ wget -q -O - https://raw.githubusercontent.com/ethersphere/bee/master/install.sh
 
 Verify: `bee version`
 
-Install swarm-cli:
+Install swarm-cli (v3.x, which bundles bee-js 12.x):
 
 ```bash
 npm install -g @ethersphere/swarm-cli
 ```
+
+> **Version note:** Run the latest Bee — **2.8.x**. 2.8 was a breaking change, so **do not run 2.7.x**. This guide targets Bee **2.8.0**, swarm-cli **3.x**, and bee-js **12.x**. bee-js 12.x hasn't yet bumped its tested-version constant past Bee **2.7.0**, so `bee.isSupportedExactVersion()` returns `false` against a 2.8.0 node — that's a cosmetic version-*string* lag in bee-js, not a real incompatibility. bee-js prints **no** warning, and `bee.isSupportedApiVersion()` returns `true` (the HTTP API is compatible), so everything works normally.
 
 ## Step 2: Start in Ultra-Light Mode
 
@@ -177,15 +178,48 @@ When the Δ (blocks behind) in Chainsync drops to less than ~10, your node is re
 
 ## Step 5: Buy a Postage Stamp
 
-Required before any upload.
+Required before any upload. **Depth** sets capacity, **amount** sets duration.
+
+> **Budget check first.** Cost in xBZZ ≈ `amount × 2^depth ÷ 10^16`. A depth-22, 3-month stamp costs **~4.2 xBZZ** — but a standard gift code only provides **~0.5 xBZZ**, so a `--depth 22` buy fails with "You do not have enough BZZ". With a single gift code you can realistically only afford a small (depth-17, ~40 KB) stamp. Buy what your balance covers, or fund more xBZZ first (see Step 3).
+
+### Compute the amount from the live price
+
+The amount-per-day depends on the current network storage price, so don't hardcode it — read it live:
 
 ```bash
-swarm-cli stamp create
+PRICE=$(curl -s http://localhost:1633/chainstate | jq .currentPrice)
+# amount = currentPrice * 17280 (blocks/day) * desired_days
+echo $((PRICE * 17280 * 30))   # ≈ amount for 30 days
 ```
 
-Enter capacity (e.g. `500MB`, `1GB`) and TTL (e.g. `1w`, `1month`, `1y`). The command shows the cost in xBZZ and asks for confirmation before purchasing. Save the **Stamp ID** returned.
+### Budget-friendly stamp (fits a ~0.5 xBZZ gift code)
 
-For detailed sizing and management options, see `/stamps`.
+```bash
+swarm-cli stamp buy --depth 17 --amount 9345732487    # ~40 KB, ~1 week, ~0.12 xBZZ
+```
+
+Or via API:
+
+```bash
+curl -X POST http://localhost:1633/stamps/9345732487/17
+```
+
+Save the **Stamp ID** returned.
+
+### Stamp sizing
+
+These are **effective (realistic) capacities** — not theoretical maximums (verify with `Utils.getStampEffectiveBytes(depth)` in bee-js 12.x):
+
+| Depth | Effective capacity | | Duration | Amount (approx, varies with price) |
+|-------|-------------------|-|----------|--------|
+| 17 | ~40 KB | | 1 week | ~9,345,732,487 |
+| 18 | ~6 MB | | 1 month | ~40,053,139,205 |
+| 19 | ~110 MB | | 3 months | ~120,159,417,615 |
+| 20 | ~680 MB | | 6 months | ~240,318,835,230 |
+| 21 | ~2.6 GB | | 1 year | ~480,637,670,460 |
+| 22 | ~7.7 GB | | | |
+
+The amounts above are upper-bound estimates from a higher historical price and can overpay by ~40%. Always compute from the live `currentPrice` (above). For the full sizing/cost guide, see `/stamps`.
 
 ### Manage stamps later
 

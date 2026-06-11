@@ -48,11 +48,11 @@ Run all of these checks before showing anything to the user. Use the results to 
    | 5 — Light/ultra-light? | Same response as above | `"light"` or `"full"` → skip to Step 9; `"ultralight"` → ask if they want to upgrade (Step 5) |
    | 6 — Wallet address | `swarm-cli addresses` | Returns a `0x...` Ethereum address |
    | 7 — Wallet funded | `swarm-cli status` | Wallet section shows non-zero xBZZ and xDAI (only in light mode — skip if still ultra-light) |
-   | 8 — Chain synced | `swarm-cli status` | Chainsync shows synchronized |
+   | 8 — Chain synced | `swarm-cli status` | Chainsync gap **Δ < ~10** (no "synchronized" keyword is printed) |
    | 9 — Stamp exists | `swarm-cli stamp list` | At least one usable stamp |
    | 10 — Upload works | `echo "ping" | swarm-cli upload --stdin --stamp <any-usable-batchID>` | Returns a hash |
 
-   If all checks pass → tell the user their node is fully operational. Suggest running `/menu` to see all available skills.
+   If all checks pass → tell the user their node is fully operational. Suggest running `/swarm` to see all available skills.
 
    If resuming mid-flow, tell the user: "It looks like you've already completed steps 1–N. Picking up from Step N+1."
 
@@ -334,35 +334,27 @@ swarm-cli status
 
 ## Step 9: Buy a Postage Stamp
 
-Tell them: "Before you can upload anything, you need a postage stamp. The interactive buyer will walk you through it."
+Tell them: "Before you can upload anything, you need a postage stamp. **Depth** sets capacity, **amount** sets how long it lasts."
 
-Ask them to run:
+> **Budget check first.** Cost in xBZZ ≈ `amount × 2^depth ÷ 10^16`. A depth-22, 3-month stamp costs **~4.2 xBZZ** — but a standard gift code only provides **~0.5 xBZZ**, so a `--depth 22` buy fails with "You do not have enough BZZ". With a single gift code you can realistically only afford a small (depth-17, ~40 KB) stamp. Buy what the balance covers, or fund more xBZZ first (Step 7).
+
+The amount-per-day depends on the live network price, so compute it rather than hardcoding:
 
 ```bash
-swarm-cli stamp create
+PRICE=$(curl -s http://localhost:1633/chainstate | jq .currentPrice)
+echo $((PRICE * 17280 * 30))   # ≈ amount for 30 days
 ```
 
-The command will prompt for:
-1. **Capacity** — total data size (e.g. `500MB`, `1GB`)
-2. **TTL** — how long the stamp should last (e.g. `1w`, `1month`, `1y`)
+Ask them to buy a budget-friendly stamp that fits a ~0.5 xBZZ gift code:
 
-It then shows the cost in xBZZ and asks for confirmation before purchasing.
-
-**Expected output (example):**
-```
-Capacity: 1.074 GB
-TTL: 24 hours
-
-Cost: 0.18 xBZZ
-Available: 0.20 xBZZ
-Type: Immutable
-? Confirm the purchase (Y/n)
+```bash
+swarm-cli stamp buy --depth 17 --amount 9345732487    # ~40 KB, ~1 week, ~0.12 xBZZ
 ```
 
-Ask them to paste the final output after confirming. Save the **Stamp ID** (batchID) from the result.
+`swarm-cli stamp buy` prints the estimated cost, capacity, TTL, and the **Stamp ID** (batchID). Save the Stamp ID. For larger sizing/cost guidance, see `/stamps`.
 
-- Confirmed → move to Step 10.
-- Insufficient funds → check balance: `swarm-cli status`. Fund via Step 7.
+- Bought → move to Step 10.
+- "You do not have enough BZZ" → lower the depth/amount, or fund more xBZZ (Step 7).
 - Command hangs → node may not be fully synced yet. Wait for chainsync, then retry.
 
 ---
@@ -406,7 +398,7 @@ PowerShell alternative:
 Get-Content <SWARM_HASH>/hello.txt
 ```
 
-- Both work → **Done!** Tell them their node is fully operational. Suggest running `/menu` to see all available skills and choose what to build next.
+- Both work → **Done!** Tell them their node is fully operational. Suggest running `/swarm` to see all available skills and choose what to build next.
 - "stamp not usable" → stamp is still propagating. Wait 2-3 minutes and retry.
 - Other errors → route to `/troubleshoot`.
 
