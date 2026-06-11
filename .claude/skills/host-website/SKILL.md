@@ -1,6 +1,6 @@
 ---
 name: host-website
-description: Deploy and update static websites on Swarm via one-off or feed-based publishing, with optional ENS integration and stamp lifecycle notes.
+description: Deploy a static website (a folder with index.html) to Swarm via swarm-cli or bee-js, as a one-time upload or an updateable feed, with optional ENS content-hash setup (eth.limo / bzz.link). Use when the user wants to publish, host, or update a site or single-page app on decentralized storage.
 user-invocable: true
 ---
 
@@ -21,7 +21,10 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps`.
+Run these checks now and **narrate each in a short line** — say what you're checking, run it (don't paste the command), report the result. Don't pause for confirmation; these are read-only checks.
+
+1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/setup-bee-interactive`.
+2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/stamps`.
 
 Then present the prerequisites to the user:
 
@@ -63,7 +66,7 @@ Access at: `http://localhost:1633/bzz/<SWARM_HASH>/`
 swarm-cli identity create website-publisher --password <SECURE_PASSWORD>
 ```
 
-Save the output securely. To export later: `swarm-cli identity export website-publisher --password <SECURE_PASSWORD>`
+Pass `--password` so the command doesn't prompt for one (or `--only-keypair` for a cleartext keypair). The same password is needed later for `swarm-cli feed print`. Save the output securely; export later with `swarm-cli identity export website-publisher`.
 
 #### Step 2: Upload to feed
 
@@ -73,8 +76,7 @@ swarm-cli feed upload ./website \
   --topic-string website \
   --stamp <BATCH_ID> \
   --index-document index.html \
-  --error-document 404.html \
-  --password <SECURE_PASSWORD>
+  --error-document 404.html
 ```
 
 Save the **manifest hash** from the "Feed Manifest URL" output (the part after `/bzz/`). This is the permanent reference — it never changes.
