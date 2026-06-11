@@ -1,6 +1,6 @@
 ---
 name: troubleshoot
-description: Stepwise diagnosis for Bee node, connectivity, wallet, stamp, and upload/download failures with fixes and API error guidance.
+description: Diagnose and fix common Bee node, connectivity, sync, funding, stamp, and upload/download problems — an ordered triage from 'is the node running?' through peers, chain sync, wallet balance, stamp validity, and Bee API error codes (400/404/422/500/503). Use when something on Swarm is failing, erroring out, or won't connect.
 user-invocable: true
 ---
 
@@ -77,7 +77,7 @@ If connected peers = 0:
 swarm-cli status
 ```
 
-Watch the "Chainsync" section. If blocks remaining is high, the node is still syncing (~5 minutes typical).
+Watch the "Chainsync" section. It shows current vs. latest block and a gap, e.g. `Block: 45,299,125 / 45,299,131 (Δ 6)` — it never prints "synchronized". A small gap (roughly **Δ < 10**) means the node is caught up; a large/growing gap means it's still syncing (~5 minutes typical) or stuck.
 
 If chain sync is stuck:
 - Check the RPC endpoint is reachable: `curl -s https://xdai.fairdatasociety.org`
@@ -213,7 +213,9 @@ swarm-cli stamp list
 | 404 | Content not found OR stamp batch not found (`"batch with id not found"`) | Content may have expired, reference is wrong, stamp ID is invalid, or ACT flags missing |
 | 422 | Unprocessable entity | Check parameter types (e.g., batch ID format) |
 | 500 | Internal server error | Check Bee logs, restart node |
-| 503 | Node not ready (still syncing) | Wait for chain sync to complete |
+| 503 | Node not ready (still syncing) | Wait for chain sync to complete (up to ~30s right after start) |
+
+> **Note:** A missing/insufficient stamp does **not** return 402 in current Bee — a missing stamp header returns **400** and an invalid stamp ID returns **404**. Treat stamp problems as 400/404.
 
 ## Security Reminder
 

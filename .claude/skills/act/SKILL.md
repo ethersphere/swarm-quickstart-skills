@@ -21,7 +21,19 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps`.
+Run these checks now and **narrate each one in a short line** — say what you're checking, run it (don't paste the command), then report the result. Don't pause for confirmation; these are read-only checks.
+
+1. **Say "Checking your Bee node…"**, then run:
+   ```bash
+   curl -s http://localhost:1633/status | jq .beeMode
+   ```
+   Reachable → "✓ Node is up." | Fails → "✗ No Bee node running." and offer to walk through `/setup-bee-interactive`.
+
+2. **Say "Checking for a usable postage stamp…"**, then run:
+   ```bash
+   curl -s http://localhost:1633/stamps | jq '.stamps[] | select(.usable==true) | {batchID, depth, batchTTL}'
+   ```
+   Found → "✓ Found a usable stamp." and proceed. | None → "✗ No usable stamp." and route to `/stamps`.
 
 ## What to Ask
 
@@ -160,6 +172,8 @@ const file = await bee.downloadFile(encryptedReference, 'secret.txt', {
 console.log('Decrypted:', file.data.toUtf8())
 // Without ACT parameters, this returns "not found"
 ```
+
+> **swarm-cli quirk:** in testing, `swarm-cli download <ref> --act --act-history-address <hist> --act-publisher <pk>` can return 404 even with correct values, while the equivalent Bee HTTP API call (same headers) returns 200. If the CLI download fails, retry via the API or bee-js.
 
 ### Manage grantees
 

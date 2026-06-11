@@ -1,6 +1,6 @@
 ---
 name: build-app
-description: Scaffold a Swarm app or add bee-js to an existing project, with core upload/download patterns and node-compatibility guidance.
+description: Scaffold a new Swarm dApp with create-swarm-app or add the bee-js SDK to an existing project (Node.js, TypeScript, or React/Vite). Covers connecting to Bee, upload/download patterns, auto-finding a postage stamp, and node-mode feature compatibility. Use when the user wants to start coding against Swarm or integrate bee-js into an app.
 user-invocable: true
 ---
 
@@ -21,7 +21,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-Silently check node status (`curl -s http://localhost:1633/node`). If the node is down, offer to walk through `/setup-bee-interactive` (a node is required to test uploads, though scaffolding can proceed without one).
+**Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode` (don't paste the command; narrate and continue — read-only check). If it fails, offer to walk through `/setup-bee-interactive` (a node is required to test uploads, though scaffolding can proceed without one).
 
 Also check for an existing project (`test -f package.json` on Linux/macOS/WSL, or `Test-Path package.json` in PowerShell):
 - **If `package.json` exists:** Default to adding bee-js. Ask: "I see you already have a project here. Want me to add bee-js to it, or scaffold a separate Swarm project?"
