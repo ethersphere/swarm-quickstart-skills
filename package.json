@@ -1,0 +1,13 @@
+{
+  "name": "swarm-quickstart-skills",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Hands-on Swarm onboarding skills for Claude Code",
+  "scripts": {
+    "verify": "node scripts/verify-beejs.mjs"
+  },
+  "devDependencies": {
+    "@ethersphere/bee-js": "^12.2.2"
+  }
+}
