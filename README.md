@@ -137,6 +137,15 @@ Skills are standalone markdown files in `.claude/skills/`. To edit or add a skil
 2. Always check prerequisites and route to the right skill if something is missing.
 3. Cover both bee-js and swarm-cli where applicable.
 4. Reference other skills using `/skill-name` format.
+5. For deeper material, add an optional `REFERENCE.md` next to `SKILL.md` (progressive disclosure) — see `stamps/`.
+
+Skills are last verified against **Bee 2.8.0**, **bee-js 12.x**, and **swarm-cli 3.x**. When you change bee-js API usage, run the guard script to catch drift (renamed `Utils` helpers, changed types, capacity changes):
+
+```bash
+npm i @ethersphere/bee-js@12 && node scripts/verify-beejs.mjs
+```
+
+It exits non-zero on a mismatch.
 
 ## Codex Mirror Automation
 
