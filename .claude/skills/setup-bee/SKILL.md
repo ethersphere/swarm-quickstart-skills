@@ -251,6 +251,23 @@ Get-Content <SWARM_HASH>/hello.txt
 
 If `Hello Swarm` is printed, the node is fully operational.
 
+## What's Next
+
+Your node is running, funded, and you've bought a stamp and verified an upload. From here:
+
+- **Store files or data** → `/upload-download`
+- **Start coding against Swarm** → `/build-app`
+
+Then build out:
+
+- **Host a website** → `/host-website`
+- **Updateable content at a fixed URL** → `/feed`
+- **A blog with a permanent URL** → `/blog`
+- **Encrypt data with access control** → `/act`
+- **Real-time messaging** → `/messaging`
+
+Manage stamps anytime with `/stamps`, or run `/troubleshoot` if something breaks. Run `/swarm` to see the full skill list.
+
 ## Security
 
 Always bind API to localhost (`127.0.0.1:1633`). Never expose port 1633 to the public internet.

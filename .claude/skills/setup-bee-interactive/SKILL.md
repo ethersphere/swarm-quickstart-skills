@@ -52,7 +52,7 @@ Run all of these checks before showing anything to the user. Use the results to 
    | 9 — Stamp exists | `swarm-cli stamp list` | At least one usable stamp |
    | 10 — Upload works | `echo "ping" | swarm-cli upload --stdin --stamp <any-usable-batchID>` | Returns a hash |
 
-   If all checks pass → tell the user their node is fully operational. Suggest running `/swarm` to see all available skills.
+   If all checks pass → tell the user their node is fully operational, and point them to the **What's Next** section below for where to go from here.
 
    If resuming mid-flow, tell the user: "It looks like you've already completed steps 1–N. Picking up from Step N+1."
 
@@ -398,9 +398,28 @@ PowerShell alternative:
 Get-Content <SWARM_HASH>/hello.txt
 ```
 
-- Both work → **Done!** Tell them their node is fully operational. Suggest running `/swarm` to see all available skills and choose what to build next.
+- Both work → **Done!** Tell them their node is fully operational, then point them to **What's Next** below.
 - "stamp not usable" → stamp is still propagating. Wait 2-3 minutes and retry.
 - Other errors → route to `/troubleshoot`.
+
+---
+
+## What's Next
+
+Your node is running, funded, and you've bought a stamp and verified an upload. From here:
+
+- **Store files or data** → `/upload-download`
+- **Start coding against Swarm** → `/build-app`
+
+Then build out:
+
+- **Host a website** → `/host-website`
+- **Updateable content at a fixed URL** → `/feed`
+- **A blog with a permanent URL** → `/blog`
+- **Encrypt data with access control** → `/act`
+- **Real-time messaging** → `/messaging`
+
+Manage stamps anytime with `/stamps`, or run `/troubleshoot` if something breaks. Run `/swarm` to see the full skill list.
 
 ---
 
