@@ -68,17 +68,17 @@ Tell the user:
 
 - If they provide a different endpoint: use it in place of `localhost:1633` for all subsequent checks and pass it along to any skill you route to.
 - If they start their node and re-run `/swarm`: continue from Step 1.
-- If they need help or can't get it running: route to `/troubleshoot`.
+- If they need help or can't get it running: route to `/swarm-troubleshoot`.
 
 **Bee not found anywhere:**
 
-Tell the user Bee doesn't appear to be installed, and let them choose `/setup-bee-interactive` (guided, step-by-step with verification) or `/setup-bee` (reference, all steps at once) to set up their node. Briefly explain the difference between the two.
+Tell the user Bee doesn't appear to be installed, and let them choose `/swarm-setup-bee-interactive` (guided, step-by-step with verification) or `/swarm-setup-bee` (reference, all steps at once) to set up their node. Briefly explain the difference between the two.
 
 ## Step 3 — Bee is running
 
 Use the `beeMode` value from Step 1 — no extra command needed:
 
-- **ultra-light:** Tell the user their node is running in ultra-light mode and uploads won't work. Ask if they want to upgrade to light mode — if yes, route to `/setup-bee-interactive`. Otherwise, show the menu below (downloads still work).
+- **ultra-light:** Tell the user their node is running in ultra-light mode and uploads won't work. Ask if they want to upgrade to light mode — if yes, route to `/swarm-setup-bee-interactive`. Otherwise, show the menu below (downloads still work).
 - **light or full:** Tell the user their node is ready, then show the menu below and ask what they want to build.
 
 ## Step 4 — Show the menu
@@ -87,26 +87,26 @@ Use the `beeMode` value from Step 1 — no extra command needed:
 Welcome! Here's what I can help you with:
 
 🐝 Setup & Infrastructure
-  /setup-bee-interactive — Install and run a Bee node, step-by-step with verification
-  /setup-bee             — Install and run a Bee node (reference, all steps at once)
-  /stamps                — Buy or manage postage stamps (required for uploads)
-  /troubleshoot          — Diagnose node, connectivity, or upload issues
+  /swarm-setup-bee-interactive — Install and run a Bee node, step-by-step with verification
+  /swarm-setup-bee             — Install and run a Bee node (reference, all steps at once)
+  /swarm-stamps                — Buy or manage postage stamps (required for uploads)
+  /swarm-troubleshoot          — Diagnose node, connectivity, or upload issues
 
 📦 Store & Retrieve
-  /upload-download  — Upload and download data, files, or directories
-  /host-website     — Deploy a website to Swarm (with optional ENS)
+  /swarm-upload-download  — Upload and download data, files, or directories
+  /swarm-host-website     — Deploy a website to Swarm (with optional ENS)
 
 🔧 Build
-  /build-app        — Scaffold a Swarm dApp or add bee-js to your project
-  /feed             — Create updateable content at a fixed address
-  /blog             — Build a blog with posts, feeds, and a permanent URL
+  /swarm-build-app        — Scaffold a Swarm dApp or add bee-js to your project
+  /swarm-feed             — Create updateable content at a fixed address
+  /swarm-blog             — Build a blog with posts, feeds, and a permanent URL
 
 🔒 Advanced
-  /act              — Encrypt data with per-account access control
-  /messaging        — Real-time messaging (GSOC or PSS)
+  /swarm-act              — Encrypt data with per-account access control
+  /swarm-messaging        — Real-time messaging (GSOC or PSS)
 
 📚 Questions
-  /docs             — Answer Swarm concepts from the authoritative docs
+  /swarm-docs             — Answer Swarm concepts from the authoritative docs
 ```
 
 ### Then route
@@ -115,23 +115,23 @@ Welcome! Here's what I can help you with:
 
 | They say... | Route to |
 |---|---|
-| "I'm new" / "getting started" / "first time" | `/setup-bee-interactive` (guided) or `/setup-bee` (reference) |
-| "upload" / "store data" / "download" | `/upload-download` |
-| "deploy a website" / "host a site" | `/host-website` |
-| "build an app" / "scaffold" / "dApp" | `/build-app` |
-| "feed" / "dynamic content" / "update without changing URL" | `/feed` |
-| "blog" / "posts" / "publish articles" | `/blog` |
-| "stamp" / "storage" / "how much does it cost" | `/stamps` |
-| "encrypt" / "private" / "access control" | `/act` |
-| "chat" / "messaging" / "real-time" / "notifications" | `/messaging` |
-| "how does X work" / "explain" / concept question | `/docs` |
-| "not working" / "error" / "can't connect" | `/troubleshoot` |
+| "I'm new" / "getting started" / "first time" | `/swarm-setup-bee-interactive` (guided) or `/swarm-setup-bee` (reference) |
+| "upload" / "store data" / "download" | `/swarm-upload-download` |
+| "deploy a website" / "host a site" | `/swarm-host-website` |
+| "build an app" / "scaffold" / "dApp" | `/swarm-build-app` |
+| "feed" / "dynamic content" / "update without changing URL" | `/swarm-feed` |
+| "blog" / "posts" / "publish articles" | `/swarm-blog` |
+| "stamp" / "storage" / "how much does it cost" | `/swarm-stamps` |
+| "encrypt" / "private" / "access control" | `/swarm-act` |
+| "chat" / "messaging" / "real-time" / "notifications" | `/swarm-messaging` |
+| "how does X work" / "explain" / concept question | `/swarm-docs` |
+| "not working" / "error" / "can't connect" | `/swarm-troubleshoot` |
 | "no code" / "just deploy" | Suggest Beeport (beeport.ethswarm.org) — no node needed |
 
 ### Quick path check
 
 If still unclear where they are in their journey:
 
-1. **Do you have a Bee node running?** No → `/setup-bee-interactive` (guided) or `/setup-bee` (reference)
-2. **Do you have a postage stamp?** No → `/stamps`
+1. **Do you have a Bee node running?** No → `/swarm-setup-bee-interactive` (guided) or `/swarm-setup-bee` (reference)
+2. **Do you have a postage stamp?** No → `/swarm-stamps`
 3. **What do you want to build?** → route to the right skill

@@ -1,5 +1,5 @@
 ---
-name: upload-download
+name: swarm-upload-download
 description: Upload and download data, files, directories, and collections on Swarm via bee-js, swarm-cli, or the Bee HTTP API (/bytes and /bzz), in Node.js or the browser. Covers references, content types, and retrieval by hash. Use when the user wants to store or retrieve content and already has a running node and a postage stamp.
 user-invocable: true
 ---
@@ -23,8 +23,8 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 Run these checks now and **narrate each in a short line** — say what you're checking, run it (don't paste the command), report the result. Don't pause for confirmation; these are read-only checks.
 
-1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/setup-bee-interactive`.
-2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/stamps`.
+1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/swarm-setup-bee-interactive`.
+2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/swarm-stamps`.
 
 ## What to Ask
 
@@ -181,16 +181,16 @@ Headers for upload:
 | Error | Fix |
 |-------|-----|
 | "stamp not usable" | Stamp hasn't propagated yet — wait 2-3 minutes after buying |
-| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee-interactive` funding section |
-| Connection refused | Node isn't running — route to `/setup-bee-interactive` |
+| "insufficient funds" | Wallet needs xBZZ — see `/swarm-setup-bee-interactive` funding section |
+| Connection refused | Node isn't running — route to `/swarm-setup-bee-interactive` |
 | 400 ("invalid header params: want required") | Missing/malformed required header (e.g. `Swarm-Postage-Batch-Id`) — include and correctly format the stamp header |
-| 404 ("batch with id not found") on upload | Stamp batch missing/unknown — buy or pick a usable stamp via `/stamps` |
+| 404 ("batch with id not found") on upload | Stamp batch missing/unknown — buy or pick a usable stamp via `/swarm-stamps` |
 | "not found" / 404 on download | Content expired, wrong reference, or missing ACT flags |
-| Other errors | Route to `/troubleshoot` |
+| Other errors | Route to `/swarm-troubleshoot` |
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

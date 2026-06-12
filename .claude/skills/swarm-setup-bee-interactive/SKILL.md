@@ -1,5 +1,5 @@
 ---
-name: setup-bee-interactive
+name: swarm-setup-bee-interactive
 description: Interactive Bee setup that detects progress, runs one step at a time with verification, and completes funding, stamps, and upload checks.
 user-invocable: true
 ---
@@ -238,9 +238,9 @@ swarm-cli status
 
 Ask: "Would you like to upgrade to a **light node** so you can upload data and use stamps? This requires funding (~0.01 xDAI + ~0.2 xBZZ on Gnosis Chain). Or do you want to stay on ultra-light for now?"
 
-Tell the user: "Note — a light node is required to follow any of the skills that guide you through building a project on Swarm (such as `/upload-download`, `/host-website`, `/feed`, `/blog`, `/act`, and `/messaging`). Ultra-light is fine for downloading data and exploring the API, but you won't be able to upload anything or buy stamps."
+Tell the user: "Note — a light node is required to follow any of the skills that guide you through building a project on Swarm (such as `/swarm-upload-download`, `/swarm-host-website`, `/swarm-feed`, `/swarm-blog`, `/swarm-act`, and `/swarm-messaging`). Ultra-light is fine for downloading data and exploring the API, but you won't be able to upload anything or buy stamps."
 
-- **Stay ultra-light:** Tell them they're all set for downloading and API exploration. Let them know they can run `/setup-bee-interactive` again to upgrade later.
+- **Stay ultra-light:** Tell them they're all set for downloading and API exploration. Let them know they can run `/swarm-setup-bee-interactive` again to upgrade later.
 - **Upgrade to light:** Continue to Step 6.
 
 ---
@@ -351,7 +351,7 @@ Ask them to buy a budget-friendly stamp that fits a ~0.5 xBZZ gift code:
 swarm-cli stamp buy --depth 17 --amount 9345732487    # ~40 KB, ~1 week, ~0.12 xBZZ
 ```
 
-`swarm-cli stamp buy` prints the estimated cost, capacity, TTL, and the **Stamp ID** (batchID). Save the Stamp ID. For larger sizing/cost guidance, see `/stamps`.
+`swarm-cli stamp buy` prints the estimated cost, capacity, TTL, and the **Stamp ID** (batchID). Save the Stamp ID. For larger sizing/cost guidance, see `/swarm-stamps`.
 
 - Bought → move to Step 10.
 - "You do not have enough BZZ" → lower the depth/amount, or fund more xBZZ (Step 7).
@@ -400,7 +400,7 @@ Get-Content <SWARM_HASH>/hello.txt
 
 - Both work → **Done!** Tell them their node is fully operational, then point them to **What's Next** below.
 - "stamp not usable" → stamp is still propagating. Wait 2-3 minutes and retry.
-- Other errors → route to `/troubleshoot`.
+- Other errors → route to `/swarm-troubleshoot`.
 
 ---
 
@@ -408,18 +408,18 @@ Get-Content <SWARM_HASH>/hello.txt
 
 Your node is running, funded, and you've bought a stamp and verified an upload. From here:
 
-- **Store files or data** → `/upload-download`
-- **Start coding against Swarm** → `/build-app`
+- **Store files or data** → `/swarm-upload-download`
+- **Start coding against Swarm** → `/swarm-build-app`
 
 Then build out:
 
-- **Host a website** → `/host-website`
-- **Updateable content at a fixed URL** → `/feed`
-- **A blog with a permanent URL** → `/blog`
-- **Encrypt data with access control** → `/act`
-- **Real-time messaging** → `/messaging`
+- **Host a website** → `/swarm-host-website`
+- **Updateable content at a fixed URL** → `/swarm-feed`
+- **A blog with a permanent URL** → `/swarm-blog`
+- **Encrypt data with access control** → `/swarm-act`
+- **Real-time messaging** → `/swarm-messaging`
 
-Manage stamps anytime with `/stamps`, or run `/troubleshoot` if something breaks. Run `/swarm` to see the full skill list.
+Manage stamps anytime with `/swarm-stamps`, or run `/swarm-troubleshoot` if something breaks. Run `/swarm` to see the full skill list.
 
 ---
 

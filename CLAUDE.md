@@ -22,19 +22,19 @@ Skills live in `.claude/skills/`. Each skill is a directory containing a `SKILL.
 
 ```
 .claude/skills/
-  swarm/SKILL.md                 — Entry point: detect Bee status, route, and show the skill menu
-  setup-bee-interactive/SKILL.md — Install and run a Bee node (interactive, step-by-step)
-  setup-bee/SKILL.md             — Install and run a Bee node (reference, all steps at once)
-  stamps/SKILL.md                — List, buy, and manage postage stamps (+ REFERENCE.md for helpers/manage)
-  upload-download/SKILL.md       — Upload and download data/files
-  host-website/SKILL.md          — Deploy a website to Swarm
-  build-app/SKILL.md             — Scaffold a dApp or add bee-js
-  feed/SKILL.md                  — Feeds for dynamic content
-  blog/SKILL.md                  — Build a blog with posts, feeds, and a permanent URL
-  act/SKILL.md                   — Access control (encrypted data)
-  messaging/SKILL.md             — Real-time messaging (GSOC/PSS)
-  troubleshoot/SKILL.md          — Diagnose node and upload issues
-  docs/SKILL.md                  — Route conceptual questions to authoritative docs
+  swarm/SKILL.md                       — Entry point: detect Bee status, route, and show the skill menu
+  swarm-setup-bee-interactive/SKILL.md — Install and run a Bee node (interactive, step-by-step)
+  swarm-setup-bee/SKILL.md             — Install and run a Bee node (reference, all steps at once)
+  swarm-stamps/SKILL.md                — List, buy, and manage postage stamps (+ REFERENCE.md for helpers/manage)
+  swarm-upload-download/SKILL.md       — Upload and download data/files
+  swarm-host-website/SKILL.md          — Deploy a website to Swarm
+  swarm-build-app/SKILL.md             — Scaffold a dApp or add bee-js
+  swarm-feed/SKILL.md                  — Feeds for dynamic content
+  swarm-blog/SKILL.md                  — Build a blog with posts, feeds, and a permanent URL
+  swarm-act/SKILL.md                   — Access control (encrypted data)
+  swarm-messaging/SKILL.md             — Real-time messaging (GSOC/PSS)
+  swarm-troubleshoot/SKILL.md          — Diagnose node and upload issues
+  swarm-docs/SKILL.md                  — Route conceptual questions to authoritative docs
 ```
 
 A skill may include a `REFERENCE.md` alongside its `SKILL.md` for progressive disclosure — the `SKILL.md` covers the happy path and links to `REFERENCE.md` for deeper material (e.g. `stamps/`).
@@ -57,9 +57,9 @@ Swarm is a decentralized peer-to-peer storage network. Files are split into 4KB 
 ### Developer flow
 
 ```
-/swarm → /setup-bee-interactive → /stamps → /upload-download or /build-app
+/swarm → /swarm-setup-bee-interactive → /swarm-stamps → /swarm-upload-download or /swarm-build-app
                                           ↓
-                            /host-website  /feed  /act  /messaging
+                            /swarm-host-website  /swarm-feed  /swarm-act  /swarm-messaging
 ```
 
 ### Two paths

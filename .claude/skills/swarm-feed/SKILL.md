@@ -1,5 +1,5 @@
 ---
-name: feed
+name: swarm-feed
 description: Create and update feeds — a stable Swarm address (owner + topic) that always resolves to the latest content even as the underlying hash changes. Covers feed writers/readers, manifests for permanent URLs, and updates via bee-js or swarm-cli. Use for dynamic or updateable content: websites, blogs, app state, RSS/podcasts, social feeds.
 user-invocable: true
 ---
@@ -23,8 +23,8 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 Run these checks now and **narrate each in a short line** — say what you're checking, run it (don't paste the command), report the result. Don't pause for confirmation; these are read-only checks.
 
-1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/setup-bee-interactive`.
-2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/stamps`.
+1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/swarm-setup-bee-interactive`.
+2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/swarm-stamps`.
 3. **Say "Checking for existing publisher identities…"**, then run `swarm-cli identity list 2>/dev/null` (Linux/macOS/WSL) or `swarm-cli identity list 2>$null` (PowerShell). If the developer already has an identity and feed, skip to [Update the feed](#update-the-feed).
 
 ## What to Ask
@@ -167,7 +167,7 @@ swarm-cli feed print \
 
 ## Use Cases
 
-- **Websites** — update your site without changing the URL or ENS record (see `/host-website`)
+- **Websites** — update your site without changing the URL or ENS record (see `/swarm-host-website`)
 - **Blogs** — add/edit/delete posts, re-upload, update feed
 - **App state** — store config, user data, or settings at a stable address
 - **RSS / podcasts** — publish new episodes to a fixed feed address
@@ -185,14 +185,14 @@ swarm-cli feed print \
 | Error | Fix |
 |-------|-----|
 | "stamp not usable" | Wait 2-3 minutes after buying |
-| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee-interactive` |
+| "insufficient funds" | Wallet needs xBZZ — see `/swarm-setup-bee-interactive` |
 | "feed not found" | Wrong identity/topic combination, or feed hasn't been written to yet |
-| Connection refused | Node isn't running — route to `/setup-bee-interactive` |
-| Other errors | Route to `/troubleshoot` |
+| Connection refused | Node isn't running — route to `/swarm-setup-bee-interactive` |
+| Other errors | Route to `/swarm-troubleshoot` |
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

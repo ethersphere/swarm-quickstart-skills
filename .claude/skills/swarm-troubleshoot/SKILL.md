@@ -1,5 +1,5 @@
 ---
-name: troubleshoot
+name: swarm-troubleshoot
 description: Diagnose and fix common Bee node, connectivity, sync, funding, stamp, and upload/download problems — an ordered triage from 'is the node running?' through peers, chain sync, wallet balance, stamp validity, and Bee API error codes (400/404/422/500/503). Use when something on Swarm is failing, erroring out, or won't connect.
 user-invocable: true
 ---
@@ -32,10 +32,10 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
     └─ No → wait / check RPC endpoint
     └─ Yes ↓
 (4) Is the wallet funded?
-    └─ No → route to /setup-bee-interactive funding
+    └─ No → route to /swarm-setup-bee-interactive funding
     └─ Yes ↓
 (5) Does a valid, non-expired stamp exist?
-    └─ No → route to /stamps
+    └─ No → route to /swarm-stamps
     └─ Yes ↓
 (6) Is the upload/download itself failing?
     └─ Yes → check error code table below
@@ -97,7 +97,7 @@ Check balances:
 swarm-cli status
 ```
 
-If xDAI or xBZZ is zero, fund the wallet — see `/setup-bee-interactive` for funding options.
+If xDAI or xBZZ is zero, fund the wallet — see `/swarm-setup-bee-interactive` for funding options.
 
 **Note:** If the node was left unfunded too long after first start, it may have shut itself down. Fund and restart.
 
@@ -108,7 +108,7 @@ swarm-cli stamp list
 ```
 
 Common stamp issues:
-- **No stamps** → buy one: see `/stamps`
+- **No stamps** → buy one: see `/swarm-stamps`
 - **Usable: No** → stamp is still propagating (wait a few minutes after purchase) or has expired
 - **TTL: 0** or expired TTL → stamp expired, buy a new one
 - **Stamp full** (immutable) → buy a new one or dilute: `swarm-cli stamp dilute --depth <new-depth> --stamp <id>`
@@ -117,7 +117,7 @@ Common stamp issues:
 
 **"stamp not usable"** → stamp hasn't propagated yet. Wait 2-3 minutes after buying.
 
-**"insufficient funds"** → wallet needs more xBZZ. Fund via `/setup-bee-interactive`.
+**"insufficient funds"** → wallet needs more xBZZ. Fund via `/swarm-setup-bee-interactive`.
 
 **Ultra-light node** → can't upload. Upgrade to light node (restart with `--swap-enable` and `--blockchain-rpc-endpoint`).
 
@@ -224,7 +224,7 @@ swarm-cli stamp list
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

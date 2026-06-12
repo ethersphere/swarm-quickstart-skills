@@ -1,5 +1,5 @@
 ---
-name: stamps
+name: swarm-stamps
 description: List, buy, size, top up, and dilute postage stamps (postage batches) — required before any Swarm upload. Covers depth vs. capacity, amount vs. duration/TTL, mutable vs. immutable, live-price cost estimation, and the bee-js Utils stamp helpers. Use when the user needs a stamp, asks about storage cost/capacity/expiry, or hits a 'no usable stamp' error.
 user-invocable: true
 ---
@@ -27,7 +27,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 swarm-cli stamp list
 ```
 
-If the command fails (connection refused, etc.), the node isn't running — say "✗ No Bee node running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
+If the command fails (connection refused, etc.), the node isn't running — say "✗ No Bee node running." Ask: "Would you like me to walk you through installing and starting one?" If yes, run through the `/swarm-setup-bee-interactive` flow now. If no, note that a running node is required and wait for their direction.
 
 Present the results as a table with these columns: full batch ID (do not shorten — the user needs to copy it), remaining capacity and total capacity formatted as "X MB remaining / Y MB total", type (mutable/immutable), and TTL as shown.
 
@@ -145,7 +145,7 @@ Quick reference (upper-bound estimates from a higher historical price; can overp
 
 3. Present the estimate: depth, effective capacity, estimated TTL, estimated cost in BZZ, and current balance. **Ask for confirmation before proceeding.**
 
-If balance is insufficient, suggest funding via `/setup-bee-interactive` or reusing an existing batch.
+If balance is insufficient, suggest funding via `/swarm-setup-bee-interactive` or reusing an existing batch.
 
 ### Via swarm-cli
 
@@ -212,7 +212,7 @@ For deeper operations, see **[REFERENCE.md](REFERENCE.md)**:
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

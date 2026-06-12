@@ -1,5 +1,5 @@
 ---
-name: build-app
+name: swarm-build-app
 description: Scaffold a new Swarm dApp with create-swarm-app or add the bee-js SDK to an existing project (Node.js, TypeScript, or React/Vite). Covers connecting to Bee, upload/download patterns, auto-finding a postage stamp, and node-mode feature compatibility. Use when the user wants to start coding against Swarm or integrate bee-js into an app.
 user-invocable: true
 ---
@@ -21,7 +21,7 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-**Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode` (don't paste the command; narrate and continue — read-only check). If it fails, offer to walk through `/setup-bee-interactive` (a node is required to test uploads, though scaffolding can proceed without one).
+**Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode` (don't paste the command; narrate and continue — read-only check). If it fails, offer to walk through `/swarm-setup-bee-interactive` (a node is required to test uploads, though scaffolding can proceed without one).
 
 Also check for an existing project (`test -f package.json` on Linux/macOS/WSL, or `Test-Path package.json` in PowerShell):
 - **If `package.json` exists:** Default to adding bee-js. Ask: "I see you already have a project here. Want me to add bee-js to it, or scaffold a separate Swarm project?"
@@ -163,16 +163,16 @@ Not all features work on all node types:
 ## What's Next
 
 Once the app is running, the developer can add:
-- **File uploads** → `/upload-download`
-- **Dynamic content** → `/feed`
-- **Website hosting** → `/host-website`
-- **Access control** → `/act`
-- **Real-time messaging** → `/messaging`
+- **File uploads** → `/swarm-upload-download`
+- **Dynamic content** → `/swarm-feed`
+- **Website hosting** → `/swarm-host-website`
+- **Access control** → `/swarm-act`
+- **Real-time messaging** → `/swarm-messaging`
 - **AI agent integration** → [swarm-mcp](https://github.com/ethersphere/swarm-mcp) gives AI tools native Swarm capabilities via MCP
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

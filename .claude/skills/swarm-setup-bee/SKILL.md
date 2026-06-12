@@ -1,5 +1,5 @@
 ---
-name: setup-bee
+name: swarm-setup-bee
 description: Install and run a Bee light node for Swarm development on Linux/macOS — system prerequisites (Node.js, curl), Bee and swarm-cli install, funding the node (gift code or xDAI/xBZZ on Gnosis Chain), upgrading ultra-light to light, and buying a first postage stamp. Use when the user has no node, gets connection-refused on localhost:1633, or needs to start or fund Bee.
 user-invocable: true
 ---
@@ -219,7 +219,7 @@ These are **effective (realistic) capacities** — not theoretical maximums (ver
 | 21 | ~2.6 GB | | 1 year | ~480,637,670,460 |
 | 22 | ~7.7 GB | | | |
 
-The amounts above are upper-bound estimates from a higher historical price and can overpay by ~40%. Always compute from the live `currentPrice` (above). For the full sizing/cost guide, see `/stamps`.
+The amounts above are upper-bound estimates from a higher historical price and can overpay by ~40%. Always compute from the live `currentPrice` (above). For the full sizing/cost guide, see `/swarm-stamps`.
 
 ### Manage stamps later
 
@@ -255,18 +255,18 @@ If `Hello Swarm` is printed, the node is fully operational.
 
 Your node is running, funded, and you've bought a stamp and verified an upload. From here:
 
-- **Store files or data** → `/upload-download`
-- **Start coding against Swarm** → `/build-app`
+- **Store files or data** → `/swarm-upload-download`
+- **Start coding against Swarm** → `/swarm-build-app`
 
 Then build out:
 
-- **Host a website** → `/host-website`
-- **Updateable content at a fixed URL** → `/feed`
-- **A blog with a permanent URL** → `/blog`
-- **Encrypt data with access control** → `/act`
-- **Real-time messaging** → `/messaging`
+- **Host a website** → `/swarm-host-website`
+- **Updateable content at a fixed URL** → `/swarm-feed`
+- **A blog with a permanent URL** → `/swarm-blog`
+- **Encrypt data with access control** → `/swarm-act`
+- **Real-time messaging** → `/swarm-messaging`
 
-Manage stamps anytime with `/stamps`, or run `/troubleshoot` if something breaks. Run `/swarm` to see the full skill list.
+Manage stamps anytime with `/swarm-stamps`, or run `/swarm-troubleshoot` if something breaks. Run `/swarm` to see the full skill list.
 
 ## Security
 
@@ -274,7 +274,7 @@ Always bind API to localhost (`127.0.0.1:1633`). Never expose port 1633 to the p
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

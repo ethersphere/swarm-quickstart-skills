@@ -1,5 +1,5 @@
 ---
-name: docs
+name: swarm-docs
 description: Answer Swarm conceptual questions from official docs with source links; use for APIs, behavior, configuration, and architecture clarifications.
 user-invocable: true
 ---

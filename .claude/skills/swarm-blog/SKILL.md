@@ -1,5 +1,5 @@
 ---
-name: blog
+name: swarm-blog
 description: Build and publish a Swarm blog with a permanent feed-manifest URL, post management workflow, and optional ENS domain mapping.
 user-invocable: true
 ---
@@ -23,8 +23,8 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 Run these checks now and **narrate each in a short line** — say what you're checking, run it (don't paste the command), report the result. Don't pause for confirmation; these are read-only checks.
 
-1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/setup-bee-interactive`.
-2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/stamps`.
+1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/swarm-setup-bee-interactive`.
+2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/swarm-stamps`.
 
 **Important:** The stamp must be **immutable** (the default). Mutable stamps overwrite old chunks when full, breaking the feed's sequential index and making old posts unretrievable. If the developer only has mutable stamps, help them buy an immutable one.
 
@@ -314,7 +314,7 @@ When your stamp expires, the blog silently goes offline — ENS still resolves b
 - Top up before expiry: `swarm-cli stamp topup --stamp <stamp-id> --amount <amount>`
 - Recommended minimum duration: **6 months** for any public blog
 
-See `/stamps` for sizing and top-up guidance.
+See `/swarm-stamps` for sizing and top-up guidance.
 
 ## If Something Goes Wrong
 
@@ -325,7 +325,7 @@ See `/stamps` for sizing and top-up guidance.
 | "stamp not usable" | Wait 2-3 minutes after buying; stamp is still propagating |
 | Blog goes blank after many posts | Stamp is mutable — buy an immutable stamp and re-initialize |
 | "not found" on manifest | Stamp expired — top up and re-upload |
-| Connection refused | Node isn't running — invoke `/setup-bee-interactive` directly |
+| Connection refused | Node isn't running — invoke `/swarm-setup-bee-interactive` directly |
 
 ## Reference
 

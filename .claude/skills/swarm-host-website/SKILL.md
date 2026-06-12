@@ -1,5 +1,5 @@
 ---
-name: host-website
+name: swarm-host-website
 description: Deploy a static website (a folder with index.html) to Swarm via swarm-cli or bee-js, as a one-time upload or an updateable feed, with optional ENS content-hash setup (eth.limo / bzz.link). Use when the user wants to publish, host, or update a site or single-page app on decentralized storage.
 user-invocable: true
 ---
@@ -23,15 +23,15 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 Run these checks now and **narrate each in a short line** — say what you're checking, run it (don't paste the command), report the result. Don't pause for confirmation; these are read-only checks.
 
-1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/setup-bee-interactive`.
-2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/stamps`.
+1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/swarm-setup-bee-interactive`.
+2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/swarm-stamps`.
 
 Then present the prerequisites to the user:
 
 ## Prerequisites
 
 - Static website files with at least an `index.html` (common output folders: `dist/`, `build/`, `out/`, `public/`)
-- swarm-cli installed (handled by `/setup-bee-interactive` — if missing, run that first)
+- swarm-cli installed (handled by `/swarm-setup-bee-interactive` — if missing, run that first)
 - If using bee-js instead: `npm install @ethersphere/bee-js` in your project
 
 Ask the user to confirm they have these before continuing.
@@ -207,7 +207,7 @@ If you don't have these, use the raw `bzz://` link or [Beeport](https://beeport.
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

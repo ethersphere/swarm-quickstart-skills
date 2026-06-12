@@ -1,5 +1,5 @@
 ---
-name: act
+name: swarm-act
 description: Guide to Swarm ACT encryption and access control: create grantees, upload protected data, grant/revoke access, and troubleshoot not-found/history issues.
 user-invocable: true
 ---
@@ -27,13 +27,13 @@ Run these checks now and **narrate each one in a short line** — say what you'r
    ```bash
    curl -s http://localhost:1633/status | jq .beeMode
    ```
-   Reachable → "✓ Node is up." | Fails → "✗ No Bee node running." and offer to walk through `/setup-bee-interactive`.
+   Reachable → "✓ Node is up." | Fails → "✗ No Bee node running." and offer to walk through `/swarm-setup-bee-interactive`.
 
 2. **Say "Checking for a usable postage stamp…"**, then run:
    ```bash
    curl -s http://localhost:1633/stamps | jq '.stamps[] | select(.usable==true) | {batchID, depth, batchTTL}'
    ```
-   Found → "✓ Found a usable stamp." and proceed. | None → "✗ No usable stamp." and route to `/stamps`.
+   Found → "✓ Found a usable stamp." and proceed. | None → "✗ No usable stamp." and route to `/swarm-stamps`.
 
 ## What to Ask
 
@@ -225,11 +225,11 @@ await bee.patchGrantees(batchId, granteeReference, historyReference, {
 | "act: invalid history" | Wrong history address — double-check reference |
 | "stamp not usable" | Wait 2-3 minutes after buying |
 | 1-second update error | Wait at least 1 second between grantee list updates |
-| Other errors | Route to `/troubleshoot` |
+| Other errors | Route to `/swarm-troubleshoot` |
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 
