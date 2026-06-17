@@ -1,6 +1,6 @@
 ---
-name: messaging
-description: Implement real-time Swarm messaging with GSOC or PSS using bee-js, including send/subscribe patterns and full-node requirements.
+name: swarm-messaging
+description: Set up real-time messaging on Swarm with GSOC (many-to-one, e.g. chat or notifications) or PSS (point-to-point, optionally encrypted, offline-capable), via bee-js. Covers mining keys, sending, subscribing, full-node requirements, and mutable-stamp needs. Use for chat, notifications, webhooks, or private peer-to-peer messages.
 user-invocable: true
 ---
 
@@ -21,7 +21,10 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps` (stamps are required for GSOC sending).
+Run these checks now and **narrate each in a short line** — say what you're checking, run it (don't paste the command), report the result. Don't pause for confirmation; these are read-only checks.
+
+1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/swarm-setup-bee-interactive`.
+2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/swarm-stamps` (stamps are required for GSOC sending).
 
 ## What to Ask
 
@@ -120,7 +123,9 @@ import { Bee, Topic } from '@ethersphere/bee-js'
 const bee = new Bee('http://localhost:1633')
 const topic = Topic.fromString('my-topic')
 
-// Continuous subscription
+// Continuous subscription.
+// In bee-js 12.x all three handlers are required — omitting onClose throws
+// "Expected function for onClose, got: undefined".
 bee.pssSubscribe(topic, {
   onMessage: msg => console.log('Received:', msg.toUtf8()),
   onError: err => console.error('Error:', err.message),
@@ -183,11 +188,11 @@ console.log('PSS Public Key:', addresses.pssPublicKey.toCompressedHex())
 | GSOC fills up fast | Must use **mutable** stamps (`immutable: false`) |
 | PSS messages not arriving | Receiving node must be a **full node** |
 | No messages received | Check overlay address and topic match between sender/receiver |
-| Other errors | Route to `/troubleshoot` |
+| Other errors | Route to `/swarm-troubleshoot` |
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

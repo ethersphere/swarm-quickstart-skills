@@ -1,6 +1,6 @@
 ---
-name: feed
-description: Create and manage Swarm feeds for stable, updateable URLs using bee-js or swarm-cli, including manifest creation and feed updates.
+name: swarm-feed
+description: Create and update feeds — a stable Swarm address (owner + topic) that always resolves to the latest content even as the underlying hash changes. Covers feed writers/readers, manifests for permanent URLs, and updates via bee-js or swarm-cli. Use for dynamic or updateable content: websites, blogs, app state, RSS/podcasts, social feeds.
 user-invocable: true
 ---
 
@@ -21,9 +21,11 @@ Add a `---` horizontal rule before each labeled code block to visually separate 
 
 ## Before Starting (run immediately)
 
-Silently check node status (`curl -s http://localhost:1633/node`) and stamp availability (`swarm-cli stamp list`). If the node is down, offer to walk through `/setup-bee-interactive`. If no usable stamp exists, route to `/stamps`.
+Run these checks now and **narrate each in a short line** — say what you're checking, run it (don't paste the command), report the result. Don't pause for confirmation; these are read-only checks.
 
-Also check for existing identities (`swarm-cli identity list 2>/dev/null` on Linux/macOS/WSL, or `swarm-cli identity list 2>$null` in PowerShell). If the developer already has an identity and feed, skip to [Update the feed](#update-the-feed).
+1. **Say "Checking your Bee node…"**, then run `curl -s http://localhost:1633/status | jq .beeMode`. Fails → "✗ No Bee node running." and offer to walk through `/swarm-setup-bee-interactive`.
+2. **Say "Checking for a usable postage stamp…"**, then run `swarm-cli stamp list`. None usable → route to `/swarm-stamps`.
+3. **Say "Checking for existing publisher identities…"**, then run `swarm-cli identity list 2>/dev/null` (Linux/macOS/WSL) or `swarm-cli identity list 2>$null` (PowerShell). If the developer already has an identity and feed, skip to [Update the feed](#update-the-feed).
 
 ## What to Ask
 
@@ -128,7 +130,7 @@ await writer.uploadReference(batchId, newUpload.reference);
 swarm-cli identity create publisher --password <SECURE_PASSWORD>
 ```
 
-Save output securely. Export later with: `swarm-cli identity export publisher --password <SECURE_PASSWORD>`
+Pass `--password` so the command doesn't prompt for one (or `--only-keypair` for a cleartext keypair with no password). Save output securely; export later with `swarm-cli identity export publisher`.
 
 ### Upload to feed
 
@@ -136,8 +138,7 @@ Save output securely. Export later with: `swarm-cli identity export publisher --
 swarm-cli feed upload ./my-content \
   --identity publisher \
   --topic-string my-topic \
-  --stamp <BATCH_ID> \
-  --password <SECURE_PASSWORD>
+  --stamp <BATCH_ID>
 ```
 
 Returns the feed manifest URL. Save the manifest hash.
@@ -162,9 +163,11 @@ swarm-cli feed print \
   --password <SECURE_PASSWORD>
 ```
 
+(`feed print` needs `--password` for a password-protected identity; `feed upload` above does not.)
+
 ## Use Cases
 
-- **Websites** — update your site without changing the URL or ENS record (see `/host-website`)
+- **Websites** — update your site without changing the URL or ENS record (see `/swarm-host-website`)
 - **Blogs** — add/edit/delete posts, re-upload, update feed
 - **App state** — store config, user data, or settings at a stable address
 - **RSS / podcasts** — publish new episodes to a fixed feed address
@@ -182,14 +185,14 @@ swarm-cli feed print \
 | Error | Fix |
 |-------|-----|
 | "stamp not usable" | Wait 2-3 minutes after buying |
-| "insufficient funds" | Wallet needs xBZZ — see `/setup-bee-interactive` |
+| "insufficient funds" | Wallet needs xBZZ — see `/swarm-setup-bee-interactive` |
 | "feed not found" | Wrong identity/topic combination, or feed hasn't been written to yet |
-| Connection refused | Node isn't running — route to `/setup-bee-interactive` |
-| Other errors | Route to `/troubleshoot` |
+| Connection refused | Node isn't running — route to `/swarm-setup-bee-interactive` |
+| Other errors | Route to `/swarm-troubleshoot` |
 
 ## Conceptual Questions
 
-For any conceptual or technical question not covered by the steps above, invoke `/docs` to find the relevant authoritative source rather than answering from prior knowledge.
+For any conceptual or technical question not covered by the steps above, invoke `/swarm-docs` to find the relevant authoritative source rather than answering from prior knowledge.
 
 ## Reference
 

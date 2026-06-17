@@ -61,9 +61,9 @@ This detects your Bee installation status and routes you to the right next step 
 Start here if you're new to Swarm:
 
 ```
-/swarm → /setup-bee-interactive → /stamps → /upload-download or /build-app
+/swarm → /swarm-setup-bee-interactive → /swarm-stamps → /swarm-upload-download or /swarm-build-app
                                                       |
-                                      /host-website  /upload-download  /blog  /act
+                                      /swarm-host-website  /swarm-upload-download  /swarm-blog  /swarm-act
 ```
 
 **No node needed yet?** Deploy a website through [Beeport](https://beeport.ethswarm.org) — no Bee node required.
@@ -75,33 +75,33 @@ Start here if you're new to Swarm:
 | Skill | What it does |
 |---|---|
 | `/swarm` | Entry point — detects your setup and routes to the right next step |
-| `/setup-bee-interactive` | Install and run a Bee node, step by step with verification at each stage |
-| `/setup-bee` | Same as above but presented as a reference (all steps at once) |
-| `/stamps` | List, buy, top up, dilute, and manage postage stamps |
-| `/troubleshoot` | Diagnose node, connectivity, and upload issues |
+| `/swarm-setup-bee-interactive` | Install and run a Bee node, step by step with verification at each stage |
+| `/swarm-setup-bee` | Same as above but presented as a reference (all steps at once) |
+| `/swarm-stamps` | List, buy, top up, dilute, and manage postage stamps |
+| `/swarm-troubleshoot` | Diagnose node, connectivity, and upload issues |
 
 ### Store & Retrieve
 
 | Skill | What it does |
 |---|---|
-| `/upload-download` | Upload and download data, files, or directories |
-| `/host-website` | Deploy a static website to Swarm with optional ENS domain |
+| `/swarm-upload-download` | Upload and download data, files, or directories |
+| `/swarm-host-website` | Deploy a static website to Swarm with optional ENS domain |
 
 ### Build
 
 | Skill | What it does |
 |---|---|
-| `/build-app` | Scaffold a Swarm dApp or add bee-js to an existing project |
-| `/feed` | Create updateable content at a fixed address (feeds) |
-| `/blog` | Build a blog with posts, a feed index, and a permanent URL |
+| `/swarm-build-app` | Scaffold a Swarm dApp or add bee-js to an existing project |
+| `/swarm-feed` | Create updateable content at a fixed address (feeds) |
+| `/swarm-blog` | Build a blog with posts, a feed index, and a permanent URL |
 
 ### Advanced
 
 | Skill | What it does |
 |---|---|
-| `/act` | Encrypt data with per-account access control (ACT) |
-| `/messaging` | Real-time messaging via GSOC or PSS |
-| `/docs` | Look up any Swarm concept from the official documentation |
+| `/swarm-act` | Encrypt data with per-account access control (ACT) |
+| `/swarm-messaging` | Real-time messaging via GSOC or PSS |
+| `/swarm-docs` | Look up any Swarm concept from the official documentation |
 
 ## What the Skills Actually Do
 
@@ -110,7 +110,7 @@ These aren't static docs. Each skill:
 - **Checks prerequisites** — is your node running? Do you have a stamp? If not, it routes you to the right skill first.
 - **Runs real commands** — queries your Bee node API, lists your stamps, uploads your files.
 - **Covers multiple tools** — examples for both [bee-js](https://github.com/ethersphere/bee-js) (JavaScript SDK) and [swarm-cli](https://github.com/ethersphere/swarm-cli) (CLI tool).
-- **Handles errors** — if something breaks, `/troubleshoot` walks through diagnostics step by step.
+- **Handles errors** — if something breaks, `/swarm-troubleshoot` walks through diagnostics step by step.
 
 ## Requirements
 
@@ -137,6 +137,15 @@ Skills are standalone markdown files in `.claude/skills/`. To edit or add a skil
 2. Always check prerequisites and route to the right skill if something is missing.
 3. Cover both bee-js and swarm-cli where applicable.
 4. Reference other skills using `/skill-name` format.
+5. For deeper material, add an optional `REFERENCE.md` next to `SKILL.md` (progressive disclosure) — see `stamps/`.
+
+Skills are last verified against **Bee 2.8.0**, **bee-js 12.x**, and **swarm-cli 3.x**. When you change bee-js API usage, run the guard script to catch drift (renamed `Utils` helpers, changed types, capacity changes):
+
+```bash
+npm i @ethersphere/bee-js@12 && node scripts/verify-beejs.mjs
+```
+
+It exits non-zero on a mismatch.
 
 ## Codex Mirror Automation
 

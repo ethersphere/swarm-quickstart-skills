@@ -4,7 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-This is the **swarm-skills** repo — AI-powered interactive guides that help developers build on the Swarm decentralized storage network. Currently packaged as Claude Code skills, with support for other AI coding tools (Cursor, GitHub Copilot, Windsurf, Codex) planned. There is no application code, no build system, and no tests. The repo contains only skill definitions (markdown files).
+This is the **swarm-quickstart-skills** repo — AI-powered interactive guides that help developers build on the Swarm decentralized storage network. Currently packaged as Claude Code skills, with support for other AI coding tools (Cursor, GitHub Copilot, Windsurf, Codex) planned. The repo is almost entirely skill definitions (markdown files); the one exception is `scripts/verify-beejs.mjs`, which asserts the bee-js / Bee API facts the skills depend on.
+
+### Verifying skills against bee-js
+
+After bumping the documented bee-js version (or to catch upstream API drift), run:
+
+```bash
+npm i @ethersphere/bee-js@12 && node scripts/verify-beejs.mjs
+```
+
+It exits non-zero if any documented fact (Utils helper names, capacity numbers, ACT/messaging types) no longer holds.
 
 ## Structure
 
@@ -12,31 +22,33 @@ Skills live in `.claude/skills/`. Each skill is a directory containing a `SKILL.
 
 ```
 .claude/skills/
-  swarm/SKILL.md                 — Entry point: detect Bee status and route
-  start/SKILL.md                 — Alias for /swarm
-  menu/SKILL.md                  — Show all available skills and route
-  setup-bee-interactive/SKILL.md — Install and run a Bee node (interactive, step-by-step)
-  setup-bee/SKILL.md             — Install and run a Bee node (reference, all steps at once)
-  stamps/SKILL.md                — List, buy, and manage postage stamps
-  upload-download/SKILL.md       — Upload and download data/files
-  host-website/SKILL.md          — Deploy a website to Swarm
-  build-app/SKILL.md             — Scaffold a dApp or add bee-js
-  feed/SKILL.md                  — Feeds for dynamic content
-  blog/SKILL.md                  — Build a blog with posts, feeds, and a permanent URL
-  act/SKILL.md                   — Access control (encrypted data)
-  messaging/SKILL.md             — Real-time messaging (GSOC/PSS)
-  troubleshoot/SKILL.md          — Diagnose node and upload issues
-  docs/SKILL.md                  — Route conceptual questions to authoritative docs
+  swarm/SKILL.md                       — Entry point: detect Bee status, route, and show the skill menu
+  swarm-setup-bee-interactive/SKILL.md — Install and run a Bee node (interactive, step-by-step)
+  swarm-setup-bee/SKILL.md             — Install and run a Bee node (reference, all steps at once)
+  swarm-stamps/SKILL.md                — List, buy, and manage postage stamps (+ REFERENCE.md for helpers/manage)
+  swarm-upload-download/SKILL.md       — Upload and download data/files
+  swarm-host-website/SKILL.md          — Deploy a website to Swarm
+  swarm-build-app/SKILL.md             — Scaffold a dApp or add bee-js
+  swarm-feed/SKILL.md                  — Feeds for dynamic content
+  swarm-blog/SKILL.md                  — Build a blog with posts, feeds, and a permanent URL
+  swarm-act/SKILL.md                   — Access control (encrypted data)
+  swarm-messaging/SKILL.md             — Real-time messaging (GSOC/PSS)
+  swarm-troubleshoot/SKILL.md          — Diagnose node and upload issues
+  swarm-docs/SKILL.md                  — Route conceptual questions to authoritative docs
 ```
+
+A skill may include a `REFERENCE.md` alongside its `SKILL.md` for progressive disclosure — the `SKILL.md` covers the happy path and links to `REFERENCE.md` for deeper material (e.g. `stamps/`).
 
 ## Editing Skills
 
 - Each skill is standalone — it should contain everything needed for that topic.
 - Skills should always check prerequisites (node running? stamp exists?) and route to the appropriate skill if not.
 - When referencing other skills, use the `/skill-name` format.
+- **Narrate prerequisite checks.** Skills run their prerequisite probes (node status, stamp availability, identities) automatically — never make the user confirm read-only localhost checks. But narrate each probe in one short line so the auto-run commands are legible: before, say what you're checking ("Checking your Bee node…"); after, report the result in a few words with ✓/✗ ("✓ Node is up." / "✗ No node running."). Narrate then continue — no confirmation gate. (Operations that cost xBZZ — stamp buy/top-up/dilute — still require explicit confirmation; that's separate and unchanged.)
 - Code examples should cover both **bee-js** and **swarm-cli** where applicable.
 - Keep commands and code up to date with the latest Bee and bee-js versions.
-- Skills last verified against: **bee-js 8.x**, **swarm-cli 2.x**, **Bee 2.x**
+- Skills last verified against: **Bee 2.8.0**, **bee-js 12.x**, **swarm-cli 3.x**
+- Note: run the latest Bee (**2.8.x**) — 2.8 was a breaking change, **do not downgrade to 2.7.x**. bee-js 12.x hasn't yet bumped its tested-version constant past Bee 2.7.0, so `bee.isSupportedExactVersion()` returns `false` against a 2.8.0 node — a cosmetic version-string lag in bee-js, not a real incompatibility. bee-js prints no warning and `bee.isSupportedApiVersion()` returns `true` (HTTP API compatible), so it works normally. All stamp helpers (`getStampCost`, `getStampEffectiveBytes`, `getDepthForSize`, `getAmountForDuration`, `getStampDuration`, `getStampTheoreticalBytes`, `getStampUsage`) live under the `Utils` namespace, not as top-level exports.
 
 ## Swarm Quick Reference
 
@@ -45,9 +57,9 @@ Swarm is a decentralized peer-to-peer storage network. Files are split into 4KB 
 ### Developer flow
 
 ```
-/swarm → /setup-bee-interactive → /stamps → /upload-download or /build-app
+/swarm → /swarm-setup-bee-interactive → /swarm-stamps → /swarm-upload-download or /swarm-build-app
                                           ↓
-                            /host-website  /feed  /act  /messaging
+                            /swarm-host-website  /swarm-feed  /swarm-act  /swarm-messaging
 ```
 
 ### Two paths
