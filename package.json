@@ -8,6 +8,6 @@
     "verify": "node scripts/verify-beejs.mjs"
   },
   "devDependencies": {
-    "@ethersphere/bee-js": "^12.2.2"
+    "@ethersphere/bee-js": "^12.3.1"
   }
 }
