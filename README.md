@@ -8,7 +8,7 @@ Swarm Quickstart Skills is a collection of interactive developer guides that run
 
 These guides are for developers who are new to Swarm or who want a structured path through the stack: from installing a node all the way to uploading files, hosting a website, building a dApp, or setting up real-time messaging.
 
-Currently supported: [Claude Code](https://claude.ai/code). 
+Currently supported: [Claude Code](https://claude.ai/code).
 
 ## Quick Start
 
@@ -63,7 +63,7 @@ Start here if you're new to Swarm:
 ```
 /swarm → /swarm-setup-bee-interactive → /swarm-stamps → /swarm-upload-download or /swarm-build-app
                                                       |
-                                      /swarm-host-website  /swarm-upload-download  /swarm-blog  /swarm-act
+                                      /swarm-host-website  /swarm-feed  /swarm-blog  /swarm-act
 ```
 
 **No node needed yet?** Deploy a website through [Beeport](https://beeport.ethswarm.org) — no Bee node required.
@@ -137,12 +137,13 @@ Skills are standalone markdown files in `.claude/skills/`. To edit or add a skil
 2. Always check prerequisites and route to the right skill if something is missing.
 3. Cover both bee-js and swarm-cli where applicable.
 4. Reference other skills using `/skill-name` format.
-5. For deeper material, add an optional `REFERENCE.md` next to `SKILL.md` (progressive disclosure) — see `stamps/`.
+5. For deeper material, add an optional `REFERENCE.md` next to `SKILL.md` (progressive disclosure) — see `swarm-stamps/`.
 
-Skills are last verified against **Bee 2.8.0**, **bee-js 12.x**, and **swarm-cli 3.x**. When you change bee-js API usage, run the guard script to catch drift (renamed `Utils` helpers, changed types, capacity changes):
+Skills are last verified against **Bee 2.8.x**, **bee-js 12.x**, and **swarm-cli 3.x**.
+When you change bee-js API usage, run the guard script to catch drift (e.g. renamed `Utils` helpers, changed types, capacity changes):
 
 ```bash
-npm i @ethersphere/bee-js@12 && node scripts/verify-beejs.mjs
+npm i @ethersphere/bee-js@12 && npm run verify
 ```
 
 It exits non-zero on a mismatch.

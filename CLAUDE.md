@@ -41,7 +41,7 @@ Skills live in `.claude/skills/`. Each skill is a directory containing a `SKILL.
   swarm-docs/SKILL.md                  — Route conceptual questions to authoritative docs
 ```
 
-A skill may include a `REFERENCE.md` alongside its `SKILL.md` for progressive disclosure — the `SKILL.md` covers the happy path and links to `REFERENCE.md` for deeper material (e.g. `stamps/`).
+A skill may include a `REFERENCE.md` alongside its `SKILL.md` for progressive disclosure — the `SKILL.md` covers the happy path and links to `REFERENCE.md` for deeper material (e.g. `swarm-stamps/`).
 
 ## Editing Skills
 
@@ -51,7 +51,7 @@ A skill may include a `REFERENCE.md` alongside its `SKILL.md` for progressive di
 - **Narrate prerequisite checks.** Skills run their prerequisite probes (node status, stamp availability, identities) automatically — never make the user confirm read-only localhost checks. But narrate each probe in one short line so the auto-run commands are legible: before, say what you're checking ("Checking your Bee node…"); after, report the result in a few words with ✓/✗ ("✓ Node is up." / "✗ No node running."). Narrate then continue — no confirmation gate. (Operations that cost xBZZ — stamp buy/top-up/dilute — still require explicit confirmation; that's separate and unchanged.)
 - Code examples should cover both **bee-js** and **swarm-cli** where applicable.
 - Keep commands and code up to date with the latest Bee and bee-js versions.
-- Skills last verified against: **Bee 2.8.0**, **bee-js 12.x**, **swarm-cli 3.x**
+- Skills last verified against: **Bee 2.8.x**, **bee-js 12.x**, **swarm-cli 3.x**
 - Note: run the latest Bee (**2.8.x**) — 2.8 was a breaking change, **do not downgrade to 2.7.x**. As of bee-js **12.3.1** the tested-version constant `SUPPORTED_BEE_VERSION` is **2.8.1**, so `bee.isSupportedExactVersion()` returns `true` against a matching 2.8.x node and no version warning is printed. (Earlier 12.x releases lagged at 2.7.0 and warned cosmetically against 2.8 nodes — no longer the case.) All stamp helpers (`getStampCost`, `getStampEffectiveBytes`, `getDepthForSize`, `getAmountForDuration`, `getStampDuration`, `getStampTheoreticalBytes`, `getStampUsage`) live under the `Utils` namespace, not as top-level exports.
 
 ## Swarm Quick Reference
